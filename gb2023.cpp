@@ -12,7 +12,15 @@ int main(){
     ll t;
     cin>> t;
     while(t--){
-    
+        int n,temp;
+        cin >> n;
+        vector <int> v;
+        for (ll i = 0; i < n; i++)
+        {
+            cin >> temp;
+            v.push_back(temp);
+        }
+        
     }
     return 0;
 }
