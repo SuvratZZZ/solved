@@ -12,13 +12,19 @@ int main(){
     ll t;
     cin>> t;
     while(t--){
-        int n,temp;
-        cin >> n;
-        vector <int> v;
-        for (ll i = 0; i < n; i++)
+        ll n,k,d,tem;
+        cin >> n >> k >> d ;
+        // cout << n << k << d ;
+        vector<ll> a,v;
+        for (int i = 0; i < n; i++)
         {
-            cin >> temp;
-            v.push_back(temp);
+            cin  >> tem;
+            a.push_back(tem);
+        }
+         for (int i = 0; i < k; i++)
+        {
+            cin  >> tem;
+            v.push_back(tem);
         }
         
     }
