@@ -14,45 +14,49 @@ const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
 void solve(){
-    ll n,k;
-    cin >> n >> k;
-    vector<ll> hel(n,0);
-    vector<ll> pos(n,0);
-    map<ll,ll >poshel;
-    ll prev=0,curr=0;
-    
+    ll n,a,b;
+    cin >> n;
+    ll m[30]={0};
     for (ll  i = 0; i < n ; i++)
     {
-        cin >> hel[i];
-    }
-    for (ll  i = 0; i < n ; i++)
-    {
-        cin >> pos[i];
-        poshel[abs(pos[i])]+=hel[i];
-    }
-
-    ll prevpos=0;
-    for(auto it:poshel){
-        prev=prev+((it.first-prevpos)*k)-it.second;
-        if (prev<0)
+        cin >> a >> b;
+        if (a==2)
         {
-            cout << "NO" << endl;
-            return;
+            
+            long long tem2 = b;
+            for (ll ii = 29; ii >= 0; ii--)
+            {
+               ll mn=min(m[ii],tem2>>ii);
+                tem2=tem2-((1<<ii)*mn);
+
+                if (tem2==0)
+                {
+                    cout << "YES" << endl;
+                    break;
+                }
+                if(ii==0){
+                    cout << "NO" << endl;
+                    break;
+                } 
+            }
+            
+                
+            
+
         }
-        prevpos=it.first;
+        if (a==1)
+        {
+            m[b]++;
+        }
+        
     }
     
-    cout << "YES" << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     //NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
     //THINK OF WHAT THE PROBLEM DEMANDS!!!
-    ll t;
-    cin >> t;
-    while(t--){
         solve();
-    }
     return 0;
 }

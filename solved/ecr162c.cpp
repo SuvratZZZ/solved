@@ -20,6 +20,8 @@ void solve(){
     ll count=0;
     vector<pair<ll,ll>> qu(q);
     vector<ll> mp(n+1);
+    vector<ll> pfs(n+1);
+    pfs[0]=0;
     mp[0]=0;
     for (ll  i = 0; i < n ; i++)
     {
@@ -28,6 +30,7 @@ void solve(){
         {
             count++;
         }
+        pfs[i+1]=pfs[i]+a[i];
         mp[i+1]=count;
         
     }
@@ -36,7 +39,7 @@ void solve(){
         ll t1,t2;
         cin >> t1 >> t2;
         qu[i]={t1,t2};
-        cout << mp[qu[i].first] << " first sec " << mp[qu[i].second] << endl;
+        // cout << mp[qu[i].first] << " first sec " << mp[qu[i].second] << endl;
     }
     for (ll  i = 0; i < q ; i++)
     {
@@ -44,15 +47,23 @@ void solve(){
         {
             cout << "NO" << endl;continue;
         }
-        if((mp[qu[i].second]-mp[qu[i].first-1])>((qu[i].second-qu[i].first+1)/2)){
-            cout << "sec " <<mp[qu[i].second]-mp[qu[i].first-1] << endl;
-            cout << "NO" << endl;
+        if(pfs[qu[i].second]-pfs[qu[i].first-1]-2*(mp[qu[i].second]-mp[qu[i].first-1])>=((qu[i].second-qu[i].first+1)-(mp[qu[i].second]-mp[qu[i].first-1]))){
+            // cout << "total 1 " <<mp[qu[i].second]-mp[qu[i].first-1] << endl;
+            // cout << "total sum " <<pfs[qu[i].second]-pfs[qu[i].first-1] << endl;
+            // cout << "total sum req excpt 1 " <<pfs[qu[i].second]-pfs[qu[i].first-1]-2*(mp[qu[i].second]-mp[qu[i].first-1]) << endl;
+            // cout << "palce of other nos " <<((qu[i].second-qu[i].first+1)-(mp[qu[i].second]-mp[qu[i].first-1])) << endl;
+            cout << "YES" << endl;
 
         }
         else{
-            cout << mp[qu[i].second]-mp[qu[i].first-1] << endl;
-            cout << "YES" << endl;
+            // cout << mp[qu[i].second]-mp[qu[i].first-1] << endl;
+            cout << "NO" << endl;
         }
+            // cout << "total 1 " <<mp[qu[i].second]-mp[qu[i].first-1] << endl;
+            // cout << "total sum " <<pfs[qu[i].second]-pfs[qu[i].first-1] << endl;
+            // cout << "total sum req excpt 1 " <<pfs[qu[i].second]-pfs[qu[i].first-1]-2*(mp[qu[i].second]-mp[qu[i].first-1]) << endl;
+            // cout << "palce of other nos " <<((qu[i].second-qu[i].first+1)-(mp[qu[i].second]-mp[qu[i].first-1])) << endl;
+        
     }
     
     

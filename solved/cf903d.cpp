@@ -44,44 +44,59 @@ void solve(){
     {
         cin >> a[i];
         ll tem=a[i];
-        while (tem%2==0)
+        // while (tem%2==0)
+        // {
+        //     m[2]++;
+        //     tem=tem/2;
+        //     if(seiv[tem]==0&&(tem>(ll)sqrt(a[i])))
+        //     {
+        //         m[tem]++;
+        //     }
+        // }
+        // // cout << "2 = " <<  m[2] << endl;
+        // for (ll  qo = 3; qo <= (ll)sqrt(a[i]); qo=qo+2)
+        // {   
+        //     tem=a[i];
+        //     if(seiv[qo]==0){
+        //         while (tem%qo==0)
+        //         {
+        //             m[qo]++;
+        //             tem=tem/qo;
+        //             if(seiv[tem]==0&&tem!=qo&&(tem>(ll)sqrt(a[i])))
+        //             {
+        //                 m[tem]++;
+        //             }
+        //         }
+        //     }
+        //     cout << qo << " inside = " <<  m[qo] << endl;
+        //     cout << "2 inside = " <<  m[2] << endl;
+        // }
+        // if(seiv[a[i]]==0){
+        //     m[a[i]]++;
+        // }
+
+        for (ll qs = 2; qs*qs <= tem; qs++)
         {
-            m[2]++;
-            tem=tem/2;
-            if(seiv[tem]==0&&(tem>(ll)sqrt(a[i])))
+            while (tem%qs==0)
             {
-                m[tem]++;
+                m[qs]++;
+                tem=tem/qs;
             }
+        
         }
-        cout << "2 = " <<  m[2] << endl;
-        for (ll  qo = 3; qo <= (ll)sqrt(a[i]); qo=qo+2)
-        {   
-            tem=a[i];
-            if(seiv[qo]==0){
-                while (tem%qo==0)
-                {
-                    m[qo]++;
-                    tem=tem/qo;
-                    if(seiv[tem]==0&&tem!=qo&&(tem>(ll)sqrt(a[i])))
-                    {
-                        m[tem]++;
-                    }
-                }
-            }
-        }
-        if(seiv[a[i]]==0){
-            m[a[i]]++;
+        if(tem>1){
+            m[tem]++;
         }
     }
     for(auto i:m ){
         if ((i.first!=1)&&(i.second%n!=0))
         {
-            // cout << "NO" << endl;
-            // return;
+            cout << "NO" << endl;
+            return;
         }
-        cout << i.first << " = " << i.second << endl;
+        // cout << i.first << "=" << i.second << endl;
     }
-    // cout << "YES" << endl;
+    cout << "YES" << endl;
     return;
 }
 int main(){
