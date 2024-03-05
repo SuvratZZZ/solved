@@ -1,82 +1,19 @@
 #include <bits/stdc++.h>
 using namespace std;
 # define ll long long
+# define pb push_back
+# define fl(i,n) for(ll i=0; i< n ;i++)
+# define flab(i,a,b) for(ll i=a;i<b;i++)
+//
+typedef vector<ll> vll;
+typedef vector<vll> vvll;
+typedef vector<int> vin;
+typedef vector<vin> vvi;
+typedef map<ll,ll> mll;
+const ll N = 2000;
+const ll INF = 1000000000000000000;
+const ll M = 998244353;
 
-// index
-// 1 substr_sum
-// 2 bitwise left right
-// 3 map - empty
-// 4 hcf (aut0 &i:a)error
-// 5 lambda func normal recursive func
-// 6 subarray sum = 0 map only prefsum
-
-// 1
-void substr_sum(){
-    ll n;
-    cin >> n;
-    string tt ,t2;
-    cin>> tt>> t2;
-    string temp;
-    temp.push_back(tt[0]);
-    for (ll  i = 0; i < n ; i++)
-    {
-        temp=tt.substr(0,i+1)+t2.substr(i,n-i);
-        cout << temp << endl;
-    }
-}
-
-// 2
-void bitwiselr(){
-    ll n;
-    cin >> n;
-    ll tem= (1<<n);
-    cout << tem << endl;
-}
-
-// 3
-void mapii(){
-    map<ll,ll> m;
-    m[0]++;
-    auto it=m.begin();
-    it--;
-    cout << it->first << " " << it->second ;
-}
-
-// 4
-void hcf_find(){
-    ll t,mx=INT_MIN,res;
-    cin >> t;
-    vector <ll> a(t);
-    auto hcf=[&](auto self,ll n,ll m){      
-        if (n%m==0)
-        {
-            return m;
-        }
-        else
-        {
-            return self(self,m,n%m);
-        }
-        
-    };
-    for (ll  i = 0; i < t; i++)
-    {
-        cin >> a[i];
-        mx=max(mx,a[i]);
-        if(i==0)res=a[0];
-        res=hcf(hcf,a[i],res);
-    }
-    
-    cout << res << endl;
-    // while (t--)
-    // {
-    //     ll a,b;
-    //     cin >> a >> b;
-    //     cout << hcf(a,b) << endl;
-    // }
-}
-
-
-// 5
 ll dfs(ll ind, string s, vector<ll> tre[]){
     if(tre[ind].empty()){
         // cout << ind << " is terminal " << endl;
@@ -198,43 +135,15 @@ void solve(){
     // cout << dfs(1,s,tre) << endl;
     cout << ans << endl;
 }
-
-// 6
-void prefs(){
-    ll n;
-    cin >> n;
-    vector<ll> a(n);
-    map<ll,ll> m;
-    m[0]=1;
-    ll s=0;
-    for (ll  i = 0; i < n ; i++)
-    {
-        cin >> a[i];
-    }
-    for (ll  i = 0; i < n ; i++)
-    {
-        a[i]=a[i]*((i%2)?-1:1);
-        s=s+a[i];
-        if(m[s]){
-            cout << "YES" << endl;
-            return;
-        }
-        m[s]++;
-    }
-    cout << "NO" << endl;
-}
-
 int main(){
+    ios_base::sync_with_stdio(false);
+    cin.tie(NULL);
+    //NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
+    //THINK OF WHAT THE PROBLEM DEMANDS!!!
     ll t;
-    
     cin >> t;
-    // t=1;
     while(t--){
-        // bitwiselr();
-        // mapii();
-        // hcf_find();
-
-        prefs();
+        solve();
     }
     return 0;
 }
