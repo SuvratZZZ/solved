@@ -61,9 +61,10 @@ int uniquePaths(int m, int n) {
 }
 
 int main(){
-    // string s;
-    int n,m;
-    cin >> n>> m;
+    string s;
+    cin >> s;
+    // int n,m;
+    // cin >> n>> m;
     
     // cout << lcm(m,n) << endl;
     // vector<vector<int>> v(5,vector<int>(7,-1));
@@ -120,12 +121,12 @@ int main(){
         
 
 
-        // adding no to string
+        // // adding no to string
         // s[2]=s[2]+5;
         // cout << s << endl;
 
 
-        // IMPOR --->> prefix sum
+        // // IMPOR --->> prefix sum
         // prefix_sum();
 
 

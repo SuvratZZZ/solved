@@ -34,9 +34,6 @@ ll dpp(ll ind,vvll v,ll d,ll m,vvll &dp,ll row,ll &c2){
     }
     return dp[row][ind]=mn+v[row][ind]+1;
 }
-void fill(ll ind,vvll v,ll d,ll m,vvll &dp,ll row,ll &c2){
-    
-}
 void solve(){
     ll n,m,k,d,c1=0;
     cin >> n >> m >> k >> d;
@@ -71,6 +68,53 @@ void solve(){
     cout << res << endl;
     cout << " couu " << c2 << " =c2  c1= " << c1 << endl;
 }
+
+void fill(vvll v,ll d,ll m,vvll &dp,ll row){
+    multiset<ll> mm;
+    dp[row][0]=1;
+    mm.insert(1);
+    for (ll  i = 1; i < d+1; i++)
+    {
+        mm.insert(v[row][i]+2);
+        dp[row][i]=v[row][i]+2;
+    }
+    for (ll  i = d+1 ; i < m ; i++)
+    {
+        ll min = *mm.begin();
+        dp[row][i]=min+v[row][i]+1;
+        mm.insert(dp[row][i]);
+        mm.erase(mm.find(min));
+    }
+}
+void sol2(){
+    ll n,m,k,d,c1=0;
+    cin >> n >> m >> k >> d;
+    vector<vector<ll>> v(n,vector<ll>(m));
+    vector<vector<ll>> dp(n,vector<ll>(m,-1));
+    for (ll  i = 0; i < n ; i++)
+    {
+        for (ll  j = 0; j < m ; j++)
+        {
+            cin >> v[i][j];
+        }
+    }
+    for (ll  i = 0; i < n ; i++)
+    {
+        fill(v,d,m,dp,i);
+    }
+    ll sum=0,res=0;
+    for (ll  i = 0; i < k ; i++)
+    {
+        sum+=dp[i][m-1];
+    }
+    for (ll   i = k; i < n ; i++)
+    {
+        res=min(res,sum);
+        sum-=dp[i-k][m-1];
+        sum+=dp[k][m-1];
+    }
+    cout << res << endl;
+}
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
@@ -79,7 +123,8 @@ int main(){
     ll t;
     cin >> t;
     while(t--){
-        solve();
+        // solve();
+        sol2();
     }
     return 0;
 }
