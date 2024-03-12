@@ -26,7 +26,6 @@ void solve(){
         v[i+2]-=v[i];
         v[i]=0;
         // cout << v[i+1] << " V V " << v[i+2] << endl;
-
     }
     if (i==n-2&&v[n-2]==0&&v[n-1]==0)
     {
