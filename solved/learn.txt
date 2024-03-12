@@ -1,2 +1,0 @@
-1// for loop ends at not achieved value;
-2// different constrains sometime give out of bound iterator;
