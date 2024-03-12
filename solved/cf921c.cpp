@@ -85,58 +85,15 @@ void solve(){
     ll index=0;
     vector<bool> hsh(k,true);
     string result;
-    for (int i = 0; i < n ; i++)
-    {   
-        for(int j=0;j<k;j++){hsh[j]=true;}
-        ll count=0;
-        while ((index<s.length())&&(count<k))
-        {
-            if (((int)s[index]<(97+k))&&hsh[(int)s[index]-97])
-            {
-                count++;
-                hsh[(int)s[index]-97]=false;
-                if(result.length()<i+1){result.push_back(s[index]);}
-                result[i]=s[index];
-                // cout << result << "<- res" << endl;
-            }
-            
-            index++;
-        }
-            v[i]=v[i]+count-1;
-            // cout << (int)s[index] << " result-> " << hsh[(int)s[index]-97] << endl;
-        if (index>=s.length())
-            {
-
-                break;
-            }
-    }
-    // for (int i: v){ cout << i << endl;}
-    for (int i = 0; i < n ; i++)
+    ll i =0;
+    while (i<(n*k)||i<m)
     {
-        if ((v[i]==(97+k-1))&&(i==n-1))
-        {
-            cout << "YES" << endl;
-                // cout << v[i] << " result-> " << result << endl;
-            return;
-        }
-
-    }
-    char missing;
-    for (int i = 0; i < k; i++)
-    {
-        if(hsh[i]){
-            result[(int)result.length()-1]=((char)97+i);
-            missing=(char)97+i;
-            break;
-        }
+        
+        
+        
+        i++;
     }
     
-    for (int i = result.length(); i < n ; i++)
-    {
-        result.push_back(missing);
-    }
-    cout << "NO\n" << result << endl;
-    return;
 }
 int main(){
     ios_base::sync_with_stdio(false);
