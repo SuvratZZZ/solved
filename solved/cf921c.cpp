@@ -81,19 +81,47 @@ void solve(){
     cin >> n >> k >> m;
     string s;
     cin >> s;
-    vector<int> v(n,97);
+    vector<ll> v(n,97);
     ll index=0;
     vector<bool> hsh(k,true);
     string result;
     ll i =0;
-    while (i<(n*k)||i<m)
+    vector<char> ses;
+    string res;
+    while (i<m)
     {
-        
-        
-        
+        if(hsh[(ll)s[i]-(ll)'a']&&((ll)s[i]-(ll)'a')<k){
+            hsh[(ll)s[i]-(ll)'a']=false;
+            ses.push_back(s[i]);
+            // cout << s[i] << " : debug len : " << i << endl;
+        }
+        if (ses.size()==k)
+        {
+            res.push_back(ses.back());
+            ses.clear();
+            hsh.assign(k,true);
+            // cout << "entered" << endl;
+            if(res.length()==n){
+                cout << "YES" <<endl;
+                return;
+            }
+        }
         i++;
     }
-    
+    // cout << res << " : res bhar " << endl;
+    for (ll  i = 0; i < k ; i++)
+    {
+        if(find(ses.begin(),ses.end(),'a'+i)==ses.end()){
+            res.push_back('a'+i);
+            break;
+        }
+    }
+    for (ll  i = res.length(); i < n; i++)
+    {
+        res.push_back('a');
+    }
+    cout <<"NO" << endl;
+    cout << res << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);

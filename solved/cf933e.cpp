@@ -73,7 +73,7 @@ void fill(vvll v,ll d,ll m,vvll &dp,ll row){
     multiset<ll> mm;
     dp[row][0]=1;
     mm.insert(1);
-    for (ll  i = 1; i < d+1; i++)
+    for (ll  i = 1; i < min(d+1,m); i++)
     {
         mm.insert(v[row][i]+2);
         dp[row][i]=v[row][i]+2;
@@ -83,7 +83,7 @@ void fill(vvll v,ll d,ll m,vvll &dp,ll row){
         ll min = *mm.begin();
         dp[row][i]=min+v[row][i]+1;
         mm.insert(dp[row][i]);
-        mm.erase(mm.find(min));
+        mm.erase(mm.find(dp[row][i-d-1]));
     }
 }
 void sol2(){
@@ -102,16 +102,26 @@ void sol2(){
     {
         fill(v,d,m,dp,i);
     }
-    ll sum=0,res=0;
+    // for (ll  i = 0; i < n ; i++)
+    // {
+    //     for (ll  j = 0; j < m ; j++)
+    //     {
+    //         cout << dp[i][j] << ' ';
+    //     }
+    //     cout << endl;
+    // }
+    
+    ll sum=0,res=LONG_LONG_MAX;
     for (ll  i = 0; i < k ; i++)
     {
         sum+=dp[i][m-1];
     }
+    res=min(sum,res);
     for (ll   i = k; i < n ; i++)
     {
-        res=min(res,sum);
         sum-=dp[i-k][m-1];
-        sum+=dp[k][m-1];
+        sum+=dp[i][m-1];
+        res=min(res,sum);
     }
     cout << res << endl;
 }

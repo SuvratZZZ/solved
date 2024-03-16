@@ -3,6 +3,9 @@
 using namespace std;
 using ll = long long;
 
+// 
+// 2 char_plus_no
+
 void solve_case() {
     int n, c;
     cin >> n >> c;
@@ -26,12 +29,24 @@ void solve_case() {
     cout << ans << endl;
 }
 
+// 2
+void char_plus_no(){
+    char c='a'+ 5;
+    cout << c << endl;
+}
+
+// 3
+void soso(){
+    ll n;
+    cin>>n;
+    cout << ((n+1)*(n+2))/2 << endl;
+}
 int main() {
     ios::sync_with_stdio(false);
     cin.tie(NULL);
     int T = 1;
     cin >> T;
     while (T--) {
-        solve_case();
+        soso();
     }
 }
