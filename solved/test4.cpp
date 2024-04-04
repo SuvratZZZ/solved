@@ -15,14 +15,25 @@ void substr_sum(){
     ll n;
     cin >> n;
     string tt ,t2;
-    cin>> tt>> t2;
+    getline(cin,tt);
+    getline(cin,t2);
     string temp;
-    temp.push_back(tt[0]);
-    for (ll  i = 0; i < n ; i++)
-    {
-        temp=tt.substr(0,i+1)+t2.substr(i,n-i);
-        cout << temp << endl;
-    }
+    // temp.push_back(tt[0]);
+    // for (ll  i = 0; i < n ; i++)
+    // {
+    //     temp=tt.substr(0,i+1)+t2.substr(i,n-i);
+    //     cout << temp << endl;
+    // }
+    cout << tt << endl;
+    cout << t2 << endl;
+    // ll i =2;
+    // while (tt[i]!=' ')
+    // {
+    //     i++;
+    // }
+
+    // cout << (stoi(tt.substr(2,i-2))) << endl;
+    // cout << (stoi(tt.substr(i+1,tt.length()-i-1))) << endl;
 }
 
 // 2
@@ -227,14 +238,14 @@ void prefs(){
 int main(){
     ll t;
     
-    cin >> t;
-    // t=1;
+    // cin >> t;
+    t=1;
     while(t--){
         // bitwiselr();
         // mapii();
         // hcf_find();
-
-        prefs();
+        substr_sum();
+        // prefs();
     }
     return 0;
 }

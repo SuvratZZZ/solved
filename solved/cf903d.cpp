@@ -94,7 +94,7 @@ void solve(){
             cout << "NO" << endl;
             return;
         }
-        // cout << i.first << "=" << i.second << endl;
+        cout << i.first << "=" << i.second << endl;
     }
     cout << "YES" << endl;
     return;

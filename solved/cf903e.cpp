@@ -4,7 +4,7 @@ using namespace std;
 # define pb push_back
 # define fl(i,n) for(ll i=0; i< n ;i++)
 # define flab(i,a,b) for(ll i=a;i<b;i++)
-//
+
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
 typedef vector<int> vin;
@@ -13,23 +13,34 @@ typedef map<ll,ll> mll;
 const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
-void solve(){
-    ll n,k;
-    cin>>n>>k;
-    ll i =0,ind=(n+1)/2,prev=0;
-    
-    for( ; i <= 30 ; i++){
-        if (ind >= k||ind<0)
-        {
-            break;
-        }
-        prev=ind;
-        ind=ind+((n-(ll)pow(2,i+1))/(ll)pow(2,i+2))+1;
-        // cout << "ind : " << ind << endl;
-        
+
+ll rere(ll ind,ll n, vector<ll> &dp, vector<ll> &a){
+    if (ind ==n )
+    {
+        return  0 ;
     }
-    // cout << "i : " << i << endl;
-    ll res=pow(2,i)+(pow(2,i+1)*(k-prev-1));
+    if (ind > n )
+    {
+        return  INT_MAX ;
+    }
+    if (dp[ind]!=-1)
+    {
+        return dp[ind];
+    }
+    ll n_rem=rere(ind+a[ind]+1,n,dp,a);
+    ll rem=1+rere(ind+1,n,dp,a);
+    return dp[ind]=min(rem,n_rem);
+}
+void solve(){
+    ll n;
+    cin>>n;
+    vector<ll> a(n);
+    for ( ll  i= 0; i < n; i++)
+    {
+        cin>>a[i];
+    }
+    vector<ll> dp(n,-1);
+    ll res = rere(0,n,dp,a);
     cout << res << endl;
 }
 int main(){

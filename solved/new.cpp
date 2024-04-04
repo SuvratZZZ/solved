@@ -2,43 +2,56 @@
 using namespace std;
 # define ll long long
 
-
 int main(){
-    ll tes ;
-    cin >> tes ;
-    while(tes --){
-        ll len ;
-    cin >> len ;
-    vector<ll> vec(len );
-    map<ll,ll> mapi;
-    ll maxii = INT_MIN;
-    for (ll  i = 0; i < len  ; i++)
+    ll tess;
+    cin >> tess;
+    while(tess--){
+        ll length,mexx=0;
+    cin>> length;
+    set<ll> s11;
+    vector<ll> aa(length),ans(length);
+    for (ll  i = 0; i < length ; i++)
     {
-        cin >> vec[i];
-        mapi[vec[i]]++;
-        maxii=max(maxii,vec[i]);
+        cin>> aa[i];
+        s11.insert(i);
+        // if(i==length-1){
+        //     ans[i]=length-aa[i];
+        // }
+        // else if (aa[i]==1)
+        // {
+        //     ans[i]=mexx;
+        //     mexx++;
+        // }
+        // else
+        //     ans[i]=mexx-aa[i] ;
     }
-    ll ans=0,chec=0;
-    for (ll  i = 0; i <= maxii+1; i++)
+    set<ll> s22;
+    for (ll  i = 0; i < length ; i++)
     {
-        if (mapi[i]==0)
+        if (s11.find(mexx-aa[i])!=s11.end())
         {
-            ans = i;
-            break;
+            ans[i]=mexx-aa[i];
+            s22.insert(mexx-aa[i]);
+            s11.erase(mexx-aa[i]);
         }
-        if((mapi[i]==1)&&chec){
-            ans = i;
-            break;
-            cout << "ff " << i << endl;
+        else{
+            s11.erase(mexx);
+            ans[i]=mexx;
+            s22.insert(mexx);
         }
-        if (mapi[i]==1)
+        while (s22.find(mexx)!=s22.end())
         {
-            chec=1;
+            mexx++;
         }
         
     }
-    // ok
-    cout << ans << endl;
+    
+    for (ll  i = 0; i < length ; i++)
+    {
+        cout << ans[i] << " " ;
+    }
+    //okay
+    cout << endl ;
     }
     return 0;
 }

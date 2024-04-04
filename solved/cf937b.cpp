@@ -1,5 +1,9 @@
 #include <bits/stdc++.h>
+#include <ext/pb_ds/assoc_container.hpp> 
+#include <ext/pb_ds/tree_policy.hpp> 
 using namespace std;
+using namespace __gnu_pbds;
+#define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
 # define ll long long
 # define pb push_back
 # define fl(i,n) for(ll i=0; i< n ;i++)
@@ -15,42 +19,26 @@ const ll INF = 1000000000000000000;
 const ll M = 998244353;
 void solve(){
     ll n;
-    cin >> n;
-    string s1,s2;
-    cin >> s1 >> s2;
-    string res;
-    res.push_back(s1[0]);
-    bool change=1;
-    for (ll  i = 1; i < n ; i++)
+    cin>>n;
+    vector<string> res(2*n);
+    for (ll  i = 0; i < 2*n ; i++)
     {
-        if (s1[i]=='1'&&s2[i-1]=='0')
+        for (ll  j  = 0; j  < 2*n ; j ++)
         {
-            res.push_back(s2[i-1]);
-            change=0;
-        }
-        if (change)
-        {
-            res.push_back(s1[i]);
-        }
-        else{
-            res.push_back(s2[i]);
-        }
-        if ((i==n-1)&&change)
-        {
-            res.push_back(s2[i]);
+            if ((((i+2)/2)+((j+2)/2))%2)
+            {
+                res[i].push_back('.');
+            }
+            else
+                res[i].push_back('#');
         }
         
     }
-    string temp;
-    ll count =0;
-    for (ll  i = 0; i < n ; i++)
+    for (ll  i = 0; i < 2*n ; i++)
     {
-        temp=s1.substr(0,i+1)+s2.substr(i,n-i);
-        if(temp==res){
-            count ++;
-        }
+        cout << res[i] << endl;
     }
-    cout << res << endl << count << endl;
+    
 }
 int main(){
     ios_base::sync_with_stdio(false);
