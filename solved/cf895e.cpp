@@ -49,7 +49,6 @@ void solve(){
             else{
                     zz=zz^v[i];
                 }
-            }
         }
         cout << oo << " : oo " << zz << " : zz " << endl;
         if (i>0)
