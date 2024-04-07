@@ -28,29 +28,17 @@ void solve(){
     }
     string s;
     cin>>s;
-    ll oo=-1,zz=-1,fo,fz,ro1=1,ro2=1;
+    ll oo=0,zz=0,fo,fz,ro1=1,ro2=1;
     for (ll  i = 0; i < n ; i++)
     {
         if(s[i]=='1')
         {   
-            if(oo==-1)
-            {
-                oo=v[i];
-            }
-            else{
                 oo=oo^v[i];
-            }
         }
         else{
-            if(zz==-1)
-            {
-                zz=v[i];
-            }
-            else{
                     zz=zz^v[i];
-                }
         }
-        cout << oo << " : oo " << zz << " : zz " << endl;
+        // cout << oo << " : oo " << zz << " : zz " << endl;
         if (i>0)
         {
             prex[i]=prex[i-1]^v[i];
@@ -58,7 +46,7 @@ void solve(){
         else
             prex[0]=v[0];
 
-        cout << prex[i] << " prex i " << i << endl;
+        // cout << prex[i] << " prex i " << i << endl;
     }
 
     ll q;cin>>q;
@@ -70,40 +58,14 @@ void solve(){
             ll l,r;
             cin>>l>>r;
             if (l==1)
-            {
-                if(fo==-1){
-                    oo=prex[r-1];
-                }
-                else if(ro1)
-                    oo=fo^prex[r-1];
-                else    
-                    oo=oo^prex[r-1];
-                if(fz==-1){
-                    zz=prex[r-1];
-                }
-                else if(ro2)
-                    zz=fz^prex[r-1];
-                else    
+            {   
+                    oo=oo^prex[r-1]; 
                     zz=zz^prex[r-1];
             }
             else
-            {
-                if(fo==-1){
-                    oo=prex[r-1]^prex[l-2];
-                }
-                else if(ro1)
-                    oo=fo^prex[r-1]^prex[l-2];
-                else    
-                    oo=oo^prex[r-1]^prex[l-2];
-                if(fz==-1){
-                    zz=prex[r-1]^prex[l-2];
-                }
-                else if(ro2)
-                    zz=fz^prex[r-1]^prex[l-2];
-                else    
+            {  
+                    oo=oo^prex[r-1]^prex[l-2];  
                     zz=zz^prex[r-1]^prex[l-2];
-                oo=oo^prex[r-1]^prex[l-2];
-                zz=zz^prex[r-1]^prex[l-2];
             }
             
         }

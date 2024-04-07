@@ -14,6 +14,7 @@ const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
 
+vector <ll> dp(100001,-1);
 ll decToBinary(ll n)
 {
     ll res=0;
@@ -26,28 +27,28 @@ ll decToBinary(ll n)
     }
     return res;
 }
-bool isreq(ll n){
+bool isreq(ll n,vector <ll> &dp){
     bool tem=false;
     if (n==1)
     {
         tem=tem|| true;
     }
-    
-    for (ll i = 2; (i<=(ll)pow(2,8))&&(i<=n) ; i++)
+    if(dp[n]!=-1)return dp[n];
+    for (ll i = 2; (i<=(ll)pow(2,6))&&(i<=n) ; i++)
     {
         if (n%decToBinary(i)==0)
         {
-            tem=tem|| isreq(n/decToBinary(i));
+            tem=tem|| isreq(n/decToBinary(i),dp);
         }
         
     }
 
-    return tem;
+    return dp[n]=tem;
 }
 void solve(){
     ll n;
     cin >> n;
-    if(isreq(n))
+    if(isreq(n,dp))
     cout << "YES" << endl;
     else
     cout << "NO" << endl;

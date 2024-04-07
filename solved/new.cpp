@@ -6,52 +6,41 @@ int main(){
     ll tess;
     cin >> tess;
     while(tess--){
-        ll length,mexx=0;
-    cin>> length;
-    set<ll> s11;
-    vector<ll> aa(length),ans(length);
-    for (ll  i = 0; i < length ; i++)
+        ll lwnn,key,mera,pe=0,du=0,cha=0,at=0,okok=1;
+    cin>>lwnn>>key;
+    vector<ll>vee(lwnn);
+    for (ll  i = 0; i < lwnn ; i++)
     {
-        cin>> aa[i];
-        s11.insert(i);
-        // if(i==length-1){
-        //     ans[i]=length-aa[i];
-        // }
-        // else if (aa[i]==1)
-        // {
-        //     ans[i]=mexx;
-        //     mexx++;
-        // }
-        // else
-        //     ans[i]=mexx-aa[i] ;
+        cin>>vee[i];
     }
-    set<ll> s22;
-    for (ll  i = 0; i < length ; i++)
-    {
-        if (s11.find(mexx-aa[i])!=s11.end())
-        {
-            ans[i]=mexx-aa[i];
-            s22.insert(mexx-aa[i]);
-            s11.erase(mexx-aa[i]);
+    mera=vee[key-1];
+    for (ll  i = 0; i < lwnn ; i++){
+        if((vee[i]<mera)&&(cha==0)){
+            pe++;
         }
-        else{
-            s11.erase(mexx);
-            ans[i]=mexx;
-            s22.insert(mexx);
+        if(vee[i]>mera){
+            cha++;
+            if ((cha==1)&&(okok==1))
+            {
+                at=i;
+                okok=0;
+            }
+            
         }
-        while (s22.find(mexx)!=s22.end())
-        {
-            mexx++;
+        if ((cha==1)&&(vee[i]<mera)&&(i<key-1)){
+            du++;
         }
-        
     }
-    
-    for (ll  i = 0; i < length ; i++)
-    {
-        cout << ans[i] << " " ;
+    if (key==1||lwnn==2){
+        cout << pe << endl;
     }
-    //okay
-    cout << endl ;
+    else if(at+1>key){
+        cout << pe << endl;
     }
+    else{
+        cout << max(pe-1,du+1) << endl;
+    }
+    }
+    // ok
     return 0;
 }

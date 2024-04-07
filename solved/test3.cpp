@@ -9,6 +9,7 @@ int seiv[1000001];
 // 2 prime factors map
 // 3 most optimised -- ek hi bachega concept
 // 4 multiset 
+// 5 xor first elem
 
 // 1
 void fill_seiv(){
@@ -148,10 +149,20 @@ void sss(){
         cout << ans << endl;
     }
 }
+
+// 5 
+void xx(){
+    int n=0,t;
+    cin>>n>>t;
+    int res=t^n;
+    cout << res ;
+}
+
 int main(){
     // map<ll,ll> m=prime_factors();
     // prime_factors_opt();
     // multi();
     // sss();
+    xx();
     return 0;
 }   
