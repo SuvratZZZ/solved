@@ -6,41 +6,56 @@ int main(){
     ll tess;
     cin >> tess;
     while(tess--){
-        ll lwnn,key,mera,pe=0,du=0,cha=0,at=0,okok=1;
-    cin>>lwnn>>key;
-    vector<ll>vee(lwnn);
-    for (ll  i = 0; i < lwnn ; i++)
+        ll len1,len2,kee;
+    cin>>len1>>len2>>kee;
+    map<ll,ll> mapi;
+    map<ll,ll> macho;
+    vector<ll> arr(len1),brr(len2);
+    for (ll  i = 0; i < len1 ; i++)
     {
-        cin>>vee[i];
+        cin>> arr[i];
     }
-    mera=vee[key-1];
-    for (ll  i = 0; i < lwnn ; i++){
-        if((vee[i]<mera)&&(cha==0)){
-            pe++;
-        }
-        if(vee[i]>mera){
-            cha++;
-            if ((cha==1)&&(okok==1))
+    for (ll  i = 0; i < len2 ; i++)
+    {
+        cin>> brr[i];
+        mapi[brr[i]]++;
+    }
+    ll ans=0;
+    ll yaya=0;
+    for (ll  i = 0; i < len2 ; i++)
+    {
+        if (mapi[arr[i]]!=0)
+        {
+            if ((macho[arr[i]]<mapi[arr[i]]))
             {
-                at=i;
-                okok=0;
+                yaya++;    
             }
-            
-        }
-        if ((cha==1)&&(vee[i]<mera)&&(i<key-1)){
-            du++;
+            macho[arr[i]]++;
         }
     }
-    if (key==1||lwnn==2){
-        cout << pe << endl;
+    if(yaya>=kee) ans++;
+    for (ll  i = len2; i < len1 ; i++)
+    {
+        if (mapi[arr[i-len2]]!=0)
+        { 
+            if (macho[arr[i-len2]]<=mapi[arr[i-len2]])
+            {
+                yaya--; 
+            }
+            macho[arr[i-len2]]--;
+        }
+        if ((mapi[arr[i]]!=0))
+        {
+            if ((macho[arr[i]]<mapi[arr[i]]))
+            {
+                yaya++;    
+            }
+            macho[arr[i]]++;
+        }
+        if(yaya>=kee) ans++;
     }
-    else if(at+1>key){
-        cout << pe << endl;
+    // okk
+    cout << ans << endl;
     }
-    else{
-        cout << max(pe-1,du+1) << endl;
-    }
-    }
-    // ok
     return 0;
 }
