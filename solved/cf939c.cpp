@@ -8,7 +8,6 @@ using namespace __gnu_pbds;
 # define pb push_back
 # define fl(i,n) for(ll i=0; i< n ;i++)
 # define flab(i,a,b) for(ll i=a;i<b;i++)
-//
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
 typedef vector<int> vin;
@@ -17,42 +16,29 @@ typedef map<ll,ll> mll;
 const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
-
-ll dfscut(ll nod,vector<vector<ll>> &tri,ll &k,ll mine,ll parent){
-    ll nodes=1;
-    for(ll i: tri[nod]){
-        if(i!=parent){
-            nodes=nodes + dfscut(i,tri,k,mine,nod);
-        }
-    }
-    if(nodes>=mine){
-        k++;
-        nodes=0;
-    }
-    return nodes;
-}
 void solve(){
-    ll n,k;
-    cin>> n>>k;
-    vector<vector<ll>> tri(n+1);
-    for (ll i = 0; i < (n-1); i++)
+    ll n;
+    cin >> n;
+    ll res=0;
+    for (ll  i = 1; i <= n ; i++)
     {
-        ll t1,t2;
-        cin>>t1>>t2;
-        tri[t1].push_back(t2);
-        tri[t2].push_back(t1);
+        res+=i*(i*2-1);
     }
-    ll lef=1,rig=n-1;
-    while (lef!=rig)    
-    {
-        ll mid=(lef+rig)/2;
-        ll cuts=0;
-        dfscut(1,tri,cuts,mid,-1);
-        if(k>cuts){
-            
+    cout << res << " " << 2*n << endl;
+    string s1="";
+    for (ll  i = 1 ; i <= n ; i++)
+        {
+            s1+=to_string(i);
+            s1+=" ";
         }
+    for (ll  i = n; i >= 1 ; i--)
+    {
+        cout << 1 << " " << i << " " << s1;
+        cout << endl;
+        
+        cout << 2 << " " << i << " " << s1;
+        cout << endl;
     }
-    
 }
 int main(){
     ios_base::sync_with_stdio(false);

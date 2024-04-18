@@ -17,42 +17,48 @@ typedef map<ll,ll> mll;
 const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
-
-ll dfscut(ll nod,vector<vector<ll>> &tri,ll &k,ll mine,ll parent){
-    ll nodes=1;
-    for(ll i: tri[nod]){
-        if(i!=parent){
-            nodes=nodes + dfscut(i,tri,k,mine,nod);
-        }
-    }
-    if(nodes>=mine){
-        k++;
-        nodes=0;
-    }
-    return nodes;
-}
 void solve(){
-    ll n,k;
-    cin>> n>>k;
-    vector<vector<ll>> tri(n+1);
-    for (ll i = 0; i < (n-1); i++)
+    ll n;
+    cin>> n;
+    vector<ll> v(n);
+    set<ll> s;
+    map<ll,ll> m;
+    map<ll,ll> res;
+
+    for (ll  i = 0; i < n ; i++)
     {
-        ll t1,t2;
-        cin>>t1>>t2;
-        tri[t1].push_back(t2);
-        tri[t2].push_back(t1);
+        cin>>v[i];
+        s.insert(v[i]);
+        m[v[i]]++;
     }
-    ll lef=1,rig=n-1;
-    while (lef!=rig)    
-    {
-        ll mid=(lef+rig)/2;
-        ll cuts=0;
-        dfscut(1,tri,cuts,mid,-1);
-        if(k>cuts){
-            
+    ll sum=0,tem;
+    for(auto i:s){
+        if(i==*s.begin()){
+            tem=i;
+            continue;
         }
+        sum+=((i-tem)*m[i]);
     }
-    
+    res[*s.begin()]=sum+n;
+    // cout << "sum :" << sum  << endl;
+    ll ind=0;
+    ll rig=n;
+    ll lef=m[*s.begin()];
+    for(auto i:s){
+        if(i==*s.begin()){
+            tem=i;
+            continue;
+        }
+        res[i]=sum+(((2*lef)-n)*(i-tem))+n;
+        sum=res[i]-n;
+        lef+=m[i];
+        tem=i;
+    }
+    for (ll  i = 0; i < n ; i++)
+    {
+        cout << res[v[i]] << " " ;
+    }
+    cout << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);

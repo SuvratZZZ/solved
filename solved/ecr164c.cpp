@@ -17,42 +17,35 @@ typedef map<ll,ll> mll;
 const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
-
-ll dfscut(ll nod,vector<vector<ll>> &tri,ll &k,ll mine,ll parent){
-    ll nodes=1;
-    for(ll i: tri[nod]){
-        if(i!=parent){
-            nodes=nodes + dfscut(i,tri,k,mine,nod);
-        }
-    }
-    if(nodes>=mine){
-        k++;
-        nodes=0;
-    }
-    return nodes;
-}
 void solve(){
-    ll n,k;
-    cin>> n>>k;
-    vector<vector<ll>> tri(n+1);
-    for (ll i = 0; i < (n-1); i++)
+    string x,y;
+    cin>>x>>y;
+    ll mn=x.length();
+        for (ll  i = 0; i <mn ; i++)
+        {
+                // cout << int(y[i]) << " yi xi " << int(x[i]) << endl;
+            if (int(y[i])>int(x[i]))
+            {
+                swap(x,y);
+                break;
+            }
+            else if(int(x[i])>int(y[i])){
+                break;
+            }
+        }
+        bool check=1;
+    for (ll  i = 0; i < mn ; i++)
     {
-        ll t1,t2;
-        cin>>t1>>t2;
-        tri[t1].push_back(t2);
-        tri[t2].push_back(t1);
-    }
-    ll lef=1,rig=n-1;
-    while (lef!=rig)    
-    {
-        ll mid=(lef+rig)/2;
-        ll cuts=0;
-        dfscut(1,tri,cuts,mid,-1);
-        if(k>cuts){
-            
+        if(int(x[i])>int(y[i])&&check==0){
+                // cout << y[i] << " yi xi " << x[i] << endl;
+            swap(x[i],y[i]);
+        }
+        if (int(x[i])>int(y[i])&&check==1)
+        {
+            check=0;
         }
     }
-    
+    cout << x << endl << y << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);

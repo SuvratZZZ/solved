@@ -1,61 +1,50 @@
 #include <bits/stdc++.h>
 using namespace std;
 # define ll long long
-
 int main(){
-    ll tess;
-    cin >> tess;
-    while(tess--){
-        ll len1,len2,kee;
-    cin>>len1>>len2>>kee;
-    map<ll,ll> mapi;
-    map<ll,ll> macho;
-    vector<ll> arr(len1),brr(len2);
-    for (ll  i = 0; i < len1 ; i++)
+    ll tes;
+    cin >> tes;
+    while(tes--){
+        ll tess;
+    cin>>tess;
+    vector<ll> arr(tess);
+    ll che1=1,che2=1;
+    for (ll  i = 0; i < tess ; i++)
     {
         cin>> arr[i];
+
     }
-    for (ll  i = 0; i < len2 ; i++)
+    ll r1=0,r2=0,finn=INT_MAX,couu=INT_MAX;
+    for (ll  i = 1; i < tess ; i++)
     {
-        cin>> brr[i];
-        mapi[brr[i]]++;
+        if(arr[i]!=arr[i-1]){
+            r1=i;
+            break;
+        }
     }
-    ll ans=0;
-    ll yaya=0;
-    for (ll  i = 0; i < len2 ; i++)
+    for (ll  i = tess-2; i >= 0 ; i--)
     {
-        if (mapi[arr[i]]!=0)
+        if(arr[i]!=arr[i+1]){
+            r2=tess-i-1;
+            break;
+        }
+    }
+    for (ll i = 1; i < tess ; i++)
+    {
+        if (arr[i]!=arr[0])
         {
-            if ((macho[arr[i]]<mapi[arr[i]]))
-            {
-                yaya++;    
-            }
-            macho[arr[i]]++;
+            finn=min(couu,finn);
+            couu=0;
+        }
+        else{
+            couu++;
         }
     }
-    if(yaya>=kee) ans++;
-    for (ll  i = len2; i < len1 ; i++)
+    if (r1==0)
     {
-        if (mapi[arr[i-len2]]!=0)
-        { 
-            if (macho[arr[i-len2]]<=mapi[arr[i-len2]])
-            {
-                yaya--; 
-            }
-            macho[arr[i-len2]]--;
-        }
-        if ((mapi[arr[i]]!=0))
-        {
-            if ((macho[arr[i]]<mapi[arr[i]]))
-            {
-                yaya++;    
-            }
-            macho[arr[i]]++;
-        }
-        if(yaya>=kee) ans++;
+        cout << -1 << endl;
     }
-    // okk
-    cout << ans << endl;
+    else cout << min(finn,min(r1,r2)) << endl;
     }
     return 0;
 }
