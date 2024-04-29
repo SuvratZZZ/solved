@@ -1,50 +1,47 @@
 #include <bits/stdc++.h>
 using namespace std;
 # define ll long long
-int main(){
-    ll tes;
-    cin >> tes;
-    while(tes--){
-        ll tess;
-    cin>>tess;
-    vector<ll> arr(tess);
-    ll che1=1,che2=1;
-    for (ll  i = 0; i < tess ; i++)
-    {
-        cin>> arr[i];
 
-    }
-    ll r1=0,r2=0,finn=INT_MAX,couu=INT_MAX;
-    for (ll  i = 1; i < tess ; i++)
+int main(){
+    ll tess;
+    cin >> tess;
+    while(tess>0){
+        ll lenn;
+    cin>>lenn;
+    vector<ll> arr(lenn);
+    set<ll> shetty;
+    for (ll  i = 0; i < lenn ; i++)
     {
-        if(arr[i]!=arr[i-1]){
-            r1=i;
-            break;
-        }
+        cin>>arr[i];
+        shetty.insert(arr[i]);
     }
-    for (ll  i = tess-2; i >= 0 ; i--)
-    {
-        if(arr[i]!=arr[i+1]){
-            r2=tess-i-1;
-            break;
-        }
-    }
-    for (ll i = 1; i < tess ; i++)
-    {
-        if (arr[i]!=arr[0])
-        {
-            finn=min(couu,finn);
-            couu=0;
+    if(*shetty.rbegin()==shetty.size()){
+        if(shetty.size()%2){
+            cout << "Alice" << endl;
         }
         else{
-            couu++;
+            cout << "Bob" << endl;
         }
     }
-    if (r1==0)
-    {
-        cout << -1 << endl;
+    else{
+    ll tatt=0;
+    for(ll i:shetty){
+        if(i==tatt+1){
+            tatt=tatt+1;
+        }
+        else{
+            break;
+        }
     }
-    else cout << min(finn,min(r1,r2)) << endl;
+    if(tatt%2==0)
+    {
+            cout << "Alice" << endl;
+    }
+    else{
+            cout << "Bob" << endl;
+    }
+    }
+    tess--;
     }
     return 0;
 }

@@ -42,17 +42,35 @@ void solve(){
         tri[t1].push_back(t2);
         tri[t2].push_back(t1);
     }
-    ll lef=1,rig=n-1;
+    ll lef=1,rig=n-1,cuts,cou=0;
     while (lef!=rig)    
     {
         ll mid=(lef+rig)/2;
-        ll cuts=0;
+        cuts=0;
         dfscut(1,tri,cuts,mid,-1);
-        if(k>cuts){
-            
+
+        cout << cuts << " : cuts , for mid : " << mid << endl;
+        if(k<cuts){
+             lef=mid;
         }
+        else{
+            rig=mid-1;
+           
+        }if (cou>10)
+        {
+            break;
+        }
+        cou++;
     }
+
+    // for (ll  i = 1; i < n ; i++)
+    // {   
+    //     cuts =0;
+    //     dfscut(1,tri,cuts,i,-1);
+    //     cout <<  "no of cuts : " << cuts << " min no of elements : " << i << endl;
+    // }
     
+    cout << lef << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);
