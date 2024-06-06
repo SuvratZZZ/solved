@@ -9,6 +9,7 @@ using namespace std;
 // 4 hcf (aut0 &i:a)error
 // 5 lambda func normal recursive func
 // 6 subarray sum = 0 map only prefsum
+// 7 seive and prime fac
 
 // 1
 void substr_sum(){
@@ -235,17 +236,46 @@ void prefs(){
     cout << "NO" << endl;
 }
 
+// 7
+const int N = 1e6+5;
+int fact[N];
+void fill_fact(){
+    for(int i=0;i<=N;i++){
+        fact[i]=i;
+    }
+    for(int i=2;i*i<=N;i++){
+        for(int j=i*i;j<=N;j=j+i){
+            if(fact[j]==j){
+                fact[j]=i;
+            }
+        }
+    }
+}
+void fin_fact(){
+    int n ; cin>>n;
+    // will not have 1 as prime 
+    vector<int> res;
+    int tt=n;
+    while(tt!=1){
+        cout << fact[tt] << " ";
+        tt=tt/fact[tt];
+    }
+}
+
 int main(){
     ll t;
-    
-    // cin >> t;
     t=1;
+    
+    cin >> t;
     while(t--){
         // bitwiselr();
         // mapii();
         // hcf_find();
-        substr_sum();
+        // substr_sum();
         // prefs();
+        // fill_fact();
+        // fin_fact();
+        cout << endl;
     }
     return 0;
 }

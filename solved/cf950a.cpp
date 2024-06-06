@@ -19,28 +19,18 @@ const ll INF = 1000000000000000000;
 const ll M = 998244353;
 void solve(){
     ll n,res=0;
-    cin >> n;
-    ll x = 1;
-    cin>>x;
-    ll t1=n-(x-1),t2=n+(x-1);
-    while (t1>0)
+    ll m;
+    cin>>n>>m;
+    string s;
+    cin>>s;
+    map<char,int> ma;
+    for (ll  i = 0; i < n ; i++)
     {
-        if((t1+1)%2==1 && ((t1+1)/2)>=x){
-            t1=(t1+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+        ma[s[i]]++;
     }
-    while (t2>0)
-    {
-        if((t2+1)%2==1 && ((t2+1)/2)>=x){
-            t2=(t2+1)/2;
-            res++;
-        }
-        else{
-            break;
+    for(char i='A' ;i<'H';i++){
+        if(ma[i]<m){
+            res+=m-ma[i];
         }
     }
     cout << res << endl;

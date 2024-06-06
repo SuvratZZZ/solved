@@ -17,33 +17,63 @@ typedef map<ll,ll> mll;
 const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
+
 void solve(){
-    ll n,res=0;
-    cin >> n;
-    ll x = 1;
+    ll x,y,zz=0;
     cin>>x;
-    ll t1=n-(x-1),t2=n+(x-1);
-    while (t1>0)
+    y=x;
+    
+    vector<ll> ans(32,0);
+    bool t=0,res=1;
+    while (y>0)
     {
-        if((t1+1)%2==1 && ((t1+1)/2)>=x){
-            t1=(t1+1)/2;
-            res++;
+        if(y&1){
+            if(t){
+                res=0;
+            }
+            else{
+                t=1;
+            }
         }
         else{
-            break;
+            t=0;
         }
+        ans[zz]=y&1;
+        y=y>>1;
+        zz++;
     }
-    while (t2>0)
-    {
-        if((t2+1)%2==1 && ((t2+1)/2)>=x){
-            t2=(t2+1)/2;
-            res++;
+    // cout << res << endl;
+    if(res){
+    cout << 32 << endl;
+        for(auto i:ans){
+            cout << i << " ";
         }
-        else{
-            break;
-        }
+        cout << endl;
+        return; 
     }
-    cout << res << endl;
+    int i=0;
+    while(i<32){
+        int i2=i+1;
+        if(ans[i]==1&&i2<31&&ans[i2]==1){
+            while (i2<32 && ans[i2]==1)
+            {
+                i2++;
+            }
+            ans[i]=-1;
+            for (int k = i+1; k < i2 ; k++)
+            {
+                ans[k]=0;
+            }
+                ans[i2]=1;
+        }
+        i=i2;
+    }
+    cout << 32 << endl;
+        for(auto i:ans){
+            cout << i << " ";
+        }
+        cout << endl;
+        return; 
 }
 int main(){
     ios_base::sync_with_stdio(false);

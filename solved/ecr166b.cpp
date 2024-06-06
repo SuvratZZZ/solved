@@ -18,32 +18,41 @@ const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
 void solve(){
-    ll n,res=0;
-    cin >> n;
-    ll x = 1;
-    cin>>x;
-    ll t1=n-(x-1),t2=n+(x-1);
-    while (t1>0)
+    ll n,ch=0,sum=0,tem=INT_MAX,s2=0,cu=INT_MAX,t2=0;
+    cin>>n;
+    vector<ll> a(n),b(n+1),diff(n);
+    for (ll  i = 0; i < n ; i++)
     {
-        if((t1+1)%2==1 && ((t1+1)/2)>=x){
-            t1=(t1+1)/2;
-            res++;
+        cin>> a[i];
+    }
+
+    for (ll  i = 0; i <= n ; i++)
+    {
+        cin>> b[i];
+    }
+    for (ll  i = 0; i <= n ; i++)
+    {
+        if(i<n){
+            diff[i]=abs(a[i]-b[i]);
+            sum+=diff[i];
+            s2+=diff[i];
+        if(b[n]>=(min(a[i],b[i]))&&b[n]<=(max(a[i],b[i]))){
+            // cout << " tt st " << i << endl;
+            ch=1;
         }
         else{
-            break;
+            tem=min(tem,abs(b[n]-a[i])+1);
+            tem=min(tem,abs(b[n]-b[i])+1);
+        }
         }
     }
-    while (t2>0)
-    {
-        if((t2+1)%2==1 && ((t2+1)/2)>=x){
-            t2=(t2+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+        // cout << cu << " cu " << sum  << " s " << ch << endl;
+    if(ch==1){
+        cout << s2+1 << endl;
     }
-    cout << res << endl;
+    else{
+        cout << sum+tem << endl;
+    }
 }
 int main(){
     ios_base::sync_with_stdio(false);

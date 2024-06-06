@@ -17,33 +17,36 @@ typedef map<ll,ll> mll;
 const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
+
+pair<string,bool> dpp(int x1,int y1,int x2,int y2){
+
+}
+
 void solve(){
-    ll n,res=0;
-    cin >> n;
-    ll x = 1;
-    cin>>x;
-    ll t1=n-(x-1),t2=n+(x-1);
-    while (t1>0)
+    ll n,x,y;
+    cin>>n;
+    string s;
+    cin>>s;
+    for (ll  i = 0; i < n ; i++)
     {
-        if((t1+1)%2==1 && ((t1+1)/2)>=x){
-            t1=(t1+1)/2;
-            res++;
+        if(s[i]=='N'){
+            y++;
         }
-        else{
-            break;
+        if(s[i]=='S'){
+            y--;
+        }
+        if(s[i]=='E'){
+            x++;
+        }
+        if(s[i]=='W'){
+            x--;
         }
     }
-    while (t2>0)
-    {
-        if((t2+1)%2==1 && ((t2+1)/2)>=x){
-            t2=(t2+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+    if((x%2)!=0||(y%2)!=0){
+        cout << "NO" << endl;
+        return;
     }
-    cout << res << endl;
+    
 }
 int main(){
     ios_base::sync_with_stdio(false);

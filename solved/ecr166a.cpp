@@ -18,32 +18,42 @@ const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
 void solve(){
-    ll n,res=0;
-    cin >> n;
-    ll x = 1;
-    cin>>x;
-    ll t1=n-(x-1),t2=n+(x-1);
-    while (t1>0)
+    bool s1=0;
+    bool s2=0;
+    bool fuc=0;
+    ll n;
+    cin>>n;
+    string s;
+    cin>>s;
+    int i=0;
+    while (i<n )
     {
-        if((t1+1)%2==1 && ((t1+1)/2)>=x){
-            t1=(t1+1)/2;
-            res++;
+        if(i!=n-1){
+            if(s[i]>s[i+1]){
+                s1=1;
+            }
+        }
+        i++;
+    }
+    for (ll  i = 0; i < n ; i++)
+    {
+        if((int)s[i]>57){
+            s2=1;
         }
         else{
-            break;
+            if(s2==1){
+                fuc=1;
+                break;
+            }
         }
     }
-    while (t2>0)
-    {
-        if((t2+1)%2==1 && ((t2+1)/2)>=x){
-            t2=(t2+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+    // cout << fuc << " f s " << s1 << endl;
+    if((fuc==1)||(s1==1)){
+        cout << "NO" << endl;
     }
-    cout << res << endl;
+    else{
+        cout << "YES" << endl;
+    }
 }
 int main(){
     ios_base::sync_with_stdio(false);

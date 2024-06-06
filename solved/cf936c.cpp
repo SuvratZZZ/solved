@@ -42,21 +42,24 @@ void solve(){
         tri[t1].push_back(t2);
         tri[t2].push_back(t1);
     }
-    ll lef=1,rig=n-1,cuts,cou=0;
-    while (lef!=rig)    
+    ll lef=1,rig=n,cuts,cou=0,ans=1;
+    while (lef<=rig)    
     {
         ll mid=(lef+rig)/2;
         cuts=0;
-        dfscut(1,tri,cuts,mid,-1);
-
-        cout << cuts << " : cuts , for mid : " << mid << endl;
+        ll tt = dfscut(1,tri,cuts,mid,-1);
+            cuts--;
+        // cout << tt << " : tt " << cuts << " : cuts , for mid : " << mid << endl;
         if(k<cuts){
-             lef=mid;
+            lef=mid+1;
+        }
+        else if(k==cuts){
+            ans=mid;
         }
         else{
             rig=mid-1;
-           
-        }if (cou>10)
+        }
+        if (cou>10)
         {
             break;
         }
@@ -70,7 +73,7 @@ void solve(){
     //     cout <<  "no of cuts : " << cuts << " min no of elements : " << i << endl;
     // }
     
-    cout << lef << endl;
+    cout << ans << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);

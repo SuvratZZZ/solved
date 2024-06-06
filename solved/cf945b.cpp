@@ -18,32 +18,32 @@ const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
 void solve(){
-    ll n,res=0;
-    cin >> n;
-    ll x = 1;
-    cin>>x;
-    ll t1=n-(x-1),t2=n+(x-1);
-    while (t1>0)
+    ll n,mx=INT_MIN,t2=0;
+    cin>>n;
+    vector<ll> v(n);
+    for (ll  i = 0; i < n ; i++)
     {
-        if((t1+1)%2==1 && ((t1+1)/2)>=x){
-            t1=(t1+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+        cin>>v[i];
+        mx=max(mx,v[i]);
+        t2=t2|v[i];
     }
-    while (t2>0)
+    v.push_back(t2);
+    ll fr=-1,cou=1,ans=1;
+    for (ll  i = 0; i <= (ll)log2(mx); i++)
     {
-        if((t2+1)%2==1 && ((t2+1)/2)>=x){
-            t2=(t2+1)/2;
-            res++;
+        fr=-1;
+        for (ll  j  = 0; j  < n+1 ; j ++)
+        {   
+            ll tem=1;
+            if((v[j]&(1<<i))>0){
+                tem=j-fr;
+                fr=j;
+                cou=max(cou,tem);
+            }
         }
-        else{
-            break;
-        }
+        ans=max(ans,cou);
     }
-    cout << res << endl;
+    cout << ans << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);

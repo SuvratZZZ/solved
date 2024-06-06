@@ -18,32 +18,18 @@ const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
 void solve(){
-    ll n,res=0;
-    cin >> n;
-    ll x = 1;
-    cin>>x;
-    ll t1=n-(x-1),t2=n+(x-1);
-    while (t1>0)
-    {
-        if((t1+1)%2==1 && ((t1+1)/2)>=x){
-            t1=(t1+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+    ll p1,p2,p3;
+    cin>>p1>>p2>>p3;
+    if(p1%2==1&&p2%2==1&&p3%2==1){
+        cout << -1 << endl;
+        return;
     }
-    while (t2>0)
-    {
-        if((t2+1)%2==1 && ((t2+1)/2)>=x){
-            t2=(t2+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
-    }
-    cout << res << endl;
+    // if (p1 + p2 + p3 == 2) cout << 1 << endl;
+    if ((p1 + p2 + p3) % 2 != 0) {
+        cout << -1 << endl;
+    } else {
+        cout << min((p1+p2+p3)/2,(p2+p1)) << endl;
+    }    
 }
 int main(){
     ios_base::sync_with_stdio(false);

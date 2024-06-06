@@ -18,32 +18,42 @@ const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
 void solve(){
-    ll n,res=0;
-    cin >> n;
-    ll x = 1;
-    cin>>x;
-    ll t1=n-(x-1),t2=n+(x-1);
-    while (t1>0)
+    ll n;
+    cin>>n;
+    vector<ll> a(n),b(n);
+    multiset<ll> aa,bb;
+    for (ll  i = 0; i < n ; i++)
     {
-        if((t1+1)%2==1 && ((t1+1)/2)>=x){
-            t1=(t1+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+        cin>> a[i];
+        aa.insert(a[i]);
     }
-    while (t2>0)
+    for (ll  i = 0; i < n ; i++)
     {
-        if((t2+1)%2==1 && ((t2+1)/2)>=x){
-            t2=(t2+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+        cin>> b[i];
+        bb.insert(b[i]);
     }
-    cout << res << endl;
+    ll cou=0;
+    auto it=aa.begin();
+    auto it2=bb.begin();
+    for (ll  i = 0; i < n ; i++)
+    {
+        if (*it>*it2)
+        {
+            cou++;
+            aa.insert(*it2);
+            it--;
+        }
+        it++;
+        it2++;
+    }
+    // for(auto i:aa){
+    //     cout << i << " ";
+    // }
+    // cout << cou << endl;
+    // for(auto i:bb){
+    //     cout << i << " ";
+    // }
+    cout << cou << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);

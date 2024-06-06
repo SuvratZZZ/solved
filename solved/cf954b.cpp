@@ -18,32 +18,61 @@ const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
 void solve(){
-    ll n,res=0;
-    cin >> n;
-    ll x = 1;
-    cin>>x;
-    ll t1=n-(x-1),t2=n+(x-1);
-    while (t1>0)
+    for(int i=0;i<n;i++) {
+
+}
+
+cin>>a[i];
+
+int ans = 1;
+
+int mx =max_element(a.begin(), a.end());
+
+int n1 =log2(mx) + 1;
+
+int cnt=0;
+
+int curr_mx = 0;
+
+for (int i = 0; i < n1; i++)
+
+{
+
+int mask= 1 << i;
+
+cnt = 0;
+
+curr_mx=0;
+
+    for (int j = 0; j < a.size(); j++)
+
     {
-        if((t1+1)%2==1 && ((t1+1)/2)>=x){
-            t1=(t1+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
-    }
-    while (t2>0)
+
+    if (!(a[j] & mask))
+
     {
-        if((t2+1)%2==1 && ((t2+1)/2)>=x){
-            t2=(t2+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+
+    cnt++;
+
     }
-    cout << res << endl;
+
+    else{ curr_mx=max(curr_mx, cnt); cnt=0;
+
+        }
+
+    }   
+
+    curr_mx = max(curr_mx, cnt);
+
+    if(cnt<a.size()) {
+
+        ans=max(ans, curr_mx+1);
+
+    }
+
+    }
+
+    cout<<ans<<endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);

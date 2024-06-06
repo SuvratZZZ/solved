@@ -18,32 +18,45 @@ const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
 void solve(){
-    ll n,res=0;
+    ll n;
+    // cout << (int)'0';
     cin >> n;
-    ll x = 1;
-    cin>>x;
-    ll t1=n-(x-1),t2=n+(x-1);
-    while (t1>0)
+    ll tem=n;
+    vector<ll> pre(n+1,0);
+    string s;
+        cin>>s;
+        // cout << s << endl;
+    for (ll i  = 0; i < n ; i++)
     {
-        if((t1+1)%2==1 && ((t1+1)/2)>=x){
-            t1=(t1+1)/2;
-            res++;
+        pre[i+1]=(int)s[i]-48+pre[i];
+    }
+    // cout << pre[n-1] << endl;
+    ll car=0;
+    for (ll  i = n-1; i >=0 ; i--)
+    {
+        pre[i+1]=pre[i]+(int)s[i]-48+car;
+        car=pre[i+1]/10;
+        pre[i+1]=pre[i+1]%10;
+    }
+    bool ch = false;
+    if (car > 0) {
+        cout << car;
+    } else {
+        ch = true;
+    }
+    for (ll  i = 1; i <=n ; i++)
+    {
+        if((pre[i]==0)&&(ch==true)){
+            // cout << pre[i] << " jfjf ";
+            continue;
         }
         else{
-            break;
+            ch=false;
+            cout << pre[i];
         }
     }
-    while (t2>0)
-    {
-        if((t2+1)%2==1 && ((t2+1)/2)>=x){
-            t2=(t2+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
-    }
-    cout << res << endl;
+    
+    cout << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);

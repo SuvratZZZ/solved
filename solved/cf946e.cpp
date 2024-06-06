@@ -1,6 +1,9 @@
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp> 
 #include <ext/pb_ds/tree_policy.hpp> 
+#include <unordered_map>
+#include <map>
+#include <chrono>
 using namespace std;
 using namespace __gnu_pbds;
 #define ordered_set tree<int, null_type,less<int>, rb_tree_tag,tree_order_statistics_node_update> 
@@ -17,32 +20,37 @@ typedef map<ll,ll> mll;
 const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
+unordered_map<string,ll> dp;
+ll dpd(ll x,ll mon,ll amo,vector<ll> &c,vector<ll> &h,unordered_map<string,ll> &dp){
+    if(mon>=c.size()){
+        return 0;
+    }
+    if(dp[to_string(mon)+','+to_string(amo)]!=0){
+        return dp[to_string(mon)+','+to_string(amo)];
+    }
+    ll r1=0,r2=0;
+    if(amo>=c[mon]){
+        r1=h[mon]+dpd(x,mon+1,amo+x-c[mon],c,h,dp);
+    }
+    r2=dpd(x,mon+1,amo+x,c,h,dp);
+    dp[to_string(mon)+','+to_string(amo)]=max(r1,r2);
+    return dp[to_string(mon)+','+to_string(amo)];
+}
 void solve(){
-    ll n,res=0;
-    cin >> n;
-    ll x = 1;
-    cin>>x;
-    ll t1=n-(x-1),t2=n+(x-1);
-    while (t1>0)
+    ll m,x;
+    cin>>m>>x;
+    vector<ll> c(m),h(m);
+    for (ll  i = 0; i < m ; i++)
     {
-        if((t1+1)%2==1 && ((t1+1)/2)>=x){
-            t1=(t1+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+        cin>>c[i]>>h[i];
     }
-    while (t2>0)
+    ll res=dpd(x,0,0,c,h,dp);
+    for (int  i = m-1 ; i>=0 ; i++)
     {
-        if((t2+1)%2==1 && ((t2+1)/2)>=x){
-            t2=(t2+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+        
     }
+    
+
     cout << res << endl;
 }
 int main(){

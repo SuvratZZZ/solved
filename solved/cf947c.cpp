@@ -18,30 +18,22 @@ const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
 void solve(){
-    ll n,res=0;
+    int n;
     cin >> n;
-    ll x = 1;
-    cin>>x;
-    ll t1=n-(x-1),t2=n+(x-1);
-    while (t1>0)
+    vector<int> a(n);
+    map<int,vector<int>> m;
+    for (ll  i = 0; i < n ; i++)
     {
-        if((t1+1)%2==1 && ((t1+1)/2)>=x){
-            t1=(t1+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+        cin>>a[i];
     }
-    while (t2>0)
+    int res=-1;
+    for (ll  i = 0; i < n-1 ; i++)
     {
-        if((t2+1)%2==1 && ((t2+1)/2)>=x){
-            t2=(t2+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+        res=max(res,min(a[i],a[i+1]));
+    }
+    for (ll  i = 0; i < n-2 ; i++)
+    {
+        res=max(res,min(a[i],a[i+2]));
     }
     cout << res << endl;
 }

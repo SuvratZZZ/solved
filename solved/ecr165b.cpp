@@ -18,30 +18,22 @@ const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
 void solve(){
-    ll n,res=0;
-    cin >> n;
-    ll x = 1;
-    cin>>x;
-    ll t1=n-(x-1),t2=n+(x-1);
-    while (t1>0)
+    string s;
+    cin>>s;
+    ll zz=0,oo=0,res=0,flag=0;
+    for (ll  i = 0; i < s.length(); i++)
     {
-        if((t1+1)%2==1 && ((t1+1)/2)>=x){
-            t1=(t1+1)/2;
-            res++;
+        if (s[i]=='0'&&flag==1)
+        {
+            // zz++;
+            res+=oo+1;
         }
-        else{
-            break;
+        else if (s[i]=='1')
+        {
+            flag=1;
+            oo++;
         }
-    }
-    while (t2>0)
-    {
-        if((t2+1)%2==1 && ((t2+1)/2)>=x){
-            t2=(t2+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+        
     }
     cout << res << endl;
 }

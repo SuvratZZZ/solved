@@ -17,33 +17,55 @@ typedef map<ll,ll> mll;
 const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
+
+long long gcd(long long int a, long long int b) 
+{ 
+  if (b == 0) 
+    return a; 
+  return gcd(b, a % b); 
+} 
+  
+long long lcm(ll a, ll b) 
+{ 
+    return (a / gcd(a, b)) * b; 
+} 
+
 void solve(){
-    ll n,res=0;
-    cin >> n;
-    ll x = 1;
-    cin>>x;
-    ll t1=n-(x-1),t2=n+(x-1);
-    while (t1>0)
+    ll n,lc=1;
+    cin>>n;
+    vector<ll> v(n);
+    map<ll,ll> m;
+    for (ll  i = 0; i < n ; i++)
     {
-        if((t1+1)%2==1 && ((t1+1)/2)>=x){
-            t1=(t1+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+        cin>>v[i];
+        m[v[i]]++;
+        lc=lcm(lc,v[i]);
     }
-    while (t2>0)
+    // cout << lc << endl;
+    ll res=n;
+    while (m[lc]!=0)
     {
-        if((t2+1)%2==1 && ((t2+1)/2)>=x){
-            t2=(t2+1)/2;
-            res++;
+        if(m[lc]!=-1){
+            res=res-m[lc];
         }
-        else{
-            break;
+        m[lc]=INT_MAX;
+        // cout << lc << "= lc 1 ," << endl;
+        lc=1;
+        for (ll  i = 0; i < n ; i++)
+        {
+            if(m[v[i]]==INT_MAX){
+                // cout << v[i] << " = no , " ;
+                continue;
+            }
+            else
+            {
+                lc=lcm(lc,v[i]);
+            }
         }
+        // cout << lc << " = lc 2," << endl;
     }
     cout << res << endl;
+    
 }
 int main(){
     ios_base::sync_with_stdio(false);

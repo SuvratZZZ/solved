@@ -8,7 +8,6 @@ using namespace __gnu_pbds;
 # define pb push_back
 # define fl(i,n) for(ll i=0; i< n ;i++)
 # define flab(i,a,b) for(ll i=a;i<b;i++)
-//
 typedef vector<ll> vll;
 typedef vector<vll> vvll;
 typedef vector<int> vin;
@@ -18,32 +17,32 @@ const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
 void solve(){
-    ll n,res=0;
-    cin >> n;
-    ll x = 1;
-    cin>>x;
-    ll t1=n-(x-1),t2=n+(x-1);
-    while (t1>0)
+    ll n,k,ps=0;
+    cin>>n>>k;
+    vector<ll> a(n),b(n);
+    vector<pair<ll,ll>> dff(n);
+    for (ll  i = 0; i < n ; i++)
     {
-        if((t1+1)%2==1 && ((t1+1)/2)>=x){
-            t1=(t1+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+        cin>>a[i];
     }
-    while (t2>0)
+    for (ll  i = 0; i < n ; i++)
     {
-        if((t2+1)%2==1 && ((t2+1)/2)>=x){
-            t2=(t2+1)/2;
-            res++;
-        }
-        else{
-            break;
-        }
+        cin>>b[i];
+        dff[i]={b[i],i};
     }
-    cout << res << endl;
+    sort(dff.begin(),dff.end());
+    reverse(dff.begin(),dff.end());
+    ll ans=0,res=0,i=0;
+    for (i = 0; i < k ; i++)
+    {
+        res=res-a[dff[i].second];
+    }
+    for (; i < n ; i++)
+    {
+        res=res+dff[i].first;
+        ans=max(ans,res);
+    }
+    cout << ans << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);
