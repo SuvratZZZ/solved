@@ -1,3 +1,4 @@
+// done
 #include <bits/stdc++.h>
 #include <ext/pb_ds/assoc_container.hpp> 
 #include <ext/pb_ds/tree_policy.hpp> 
@@ -20,7 +21,7 @@ const ll M = 998244353;
 void solve(){
     ll n,m,br,cp=0,ct=0,tf=0,pf=0;
     cin>>n>>m;
-    vector<int> a(n+m+1),b(n+1+m),prp(n+m+2,0),prt(n+m+2,0);
+    vector<ll> a(n+m+1),b(n+1+m),prp(n+m+2,0),prt(n+m+2,0);
     for (ll  i = 0; i < n+m+1; i++)
     {
         cin>>a[i];
@@ -63,10 +64,15 @@ void solve(){
         for (ll  i = 0; i < n+m+1; i++)
         {
             if(i<=br){
-                cout << prp[n+m+1]+prt[n+m+1]-max(a[i],b[i]) << " . ";
+                if(a[i]>b[i]){
+                    cout << prp[n+m+1]+prt[n+m+1]-max(a[i],b[i]) << " ";
+                }
+                else{
+                    cout << prp[n+m+1]+prt[n+m+1]-max(a[i],b[i])-a[br]+b[br] << " ";
+                }
             }
             else{
-                cout << prp[n+m+1]+prt[n+m+1]-b[i] << " . ";
+                cout << prp[n+m+1]+prt[n+m+1]-b[i]-a[br]+b[br] << " ";
             }
         }
     }
@@ -80,10 +86,15 @@ void solve(){
         for (ll  i = 0; i < n+m+1; i++)
         {
             if(i<=br){
-                cout << prp[n+m+1]+prt[n+m+1]-max(a[i],b[i]) << " . ";
+                if(a[i]<b[i]){
+                    cout << prp[n+m+1]+prt[n+m+1]-max(a[i],b[i]) << " ";
+                }
+                else{
+                    cout << prp[n+m+1]+prt[n+m+1]-max(a[i],b[i])+a[br]-b[br] << " ";
+                }
             }
             else{
-                cout << prp[n+m+1]+prt[n+m+1]-a[i] << " . ";
+                cout << prp[n+m+1]+prt[n+m+1]-a[i]+a[br]-b[br] << " ";
             }
         }
     }

@@ -18,16 +18,6 @@ const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
 
-vector<vector<int>> transpose(const vector<vector<int>>& mat) {
-    int n = mat.size();
-    vector<vector<int>> t(n, vector<int>(n));
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            t[j][i] = mat[i][j];
-        }
-    }
-    return t;
-}
 
 void solve() {
     int n, m;
@@ -36,83 +26,52 @@ void solve() {
     vector<vector<int>> grid1(n, vector<int>(m));
     vector<vector<int>> grid2(n, vector<int>(m));
 
+    set<set<ll>> m1ro;
+    set<set<ll>> m2ro;
+    set<set<ll>> m1co;
+    set<set<ll>> m2co;
+
     for (int i = 0; i < n; i++) {
+        set<ll> tem;
         for (int j = 0; j < m; j++) {
             cin >> grid1[i][j];
+            tem.insert(grid1[i][j]);
         }
+        m1ro.insert(tem);
     }
 
     for (int i = 0; i < n; i++) {
+        set<ll> tem;
         for (int j = 0; j < m; j++) {
             cin >> grid2[i][j];
+            tem.insert(grid2[i][j]);
         }
+        m2ro.insert(tem);
     }
 
-    if (n == m) {
-        set<vector<int>> stt;
-        for (const auto& v : grid1) {
-            stt.insert(v);
+    for (int i = 0; i < m; i++) {
+        set<ll> tem;
+        for (int j = 0; j < n; j++) {
+            // cin >> grid2[i][j];
+            tem.insert(grid1[j][i]);
         }
-
-        for (const auto& v : grid2) {
-            if (stt.find(v) == stt.end()) {
-                cout << "NO" << endl;
-                return;
-            }
-        }
-
-        grid1 = transpose(grid1);
-        grid2 = transpose(grid2);
-        stt.clear();
-
-        for (const auto& v : grid1) {
-            stt.insert(v);
-        }
-
-        for (const auto& v : grid2) {
-            if (stt.find(v) == stt.end()) {
-                cout << "NO" << endl;
-                return;
-            }
-        }
-
-        cout << "YES" << endl;
-    } else {
-        set<vector<int>> stt;
-        for (const auto& v : grid1) {
-            stt.insert(v);
-        }
-
-        for (const auto& v : grid2) {
-            if (stt.find(v) == stt.end()) {
-                cout << "NO" << endl;
-                return;
-            }
-        }
-
-        stt.clear();
-
-        for (int j = 0; j < m; j++) {
-            vector<int> cur;
-            for (int i = 0; i < n; i++) {
-                cur.push_back(grid1[i][j]);
-            }
-            stt.insert(cur);
-        }
-
-        for (int j = 0; j < m; j++) {
-            vector<int> cur;
-            for (int i = 0; i < n; i++) {
-                cur.push_back(grid2[i][j]);
-            }
-            if (stt.find(cur) == stt.end()) {
-                cout << "NO" << endl;
-                return;
-            }
-        }
-
-        cout << "YES" << endl;
+        m1co.insert(tem);
     }
+
+    for (int i = 0; i < m; i++) {
+        set<ll> tem;
+        for (int j = 0; j < n; j++) {
+            // cin >> grid2[i][j];
+            tem.insert(grid2[j][i]);
+        }
+        m2co.insert(tem);
+    }
+    
+    if(m1co==m2co&&m1ro==m2ro){
+        cout << "YES" << endl;
+        return ;
+    }
+        cout << "NO" << endl;
 }
 
 
