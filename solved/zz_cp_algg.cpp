@@ -3,6 +3,7 @@ using namespace std;
 # define ll long long
 
 // 1 finwick tree
+// 2 DSU
 
 
 // 1 
@@ -44,7 +45,7 @@ void jwt(ll n, vector<ll> &arr, ll q, vector<vector<ll>> &qu) {
         }
     }
 }
-void chu(){
+void demofw(){
     ll n, q;
 
     cout << "Enter the number of elements in the array: ";
@@ -70,16 +71,70 @@ void chu(){
 }
 
 
+// 2
+class CHU
+{
+public:
+    vector<ll> prt,siz,ran;
+    CHU(ll n){
+        prt.resize(n+1);
+        siz.resize(n+1,1);
+        ran.resize(n+1,1);
+        for (ll i = 0; i < n+1; i++)
+        {
+           prt[i]=i;
+        }
+    }
+    ll fin_prt(ll n)
+    {
+        if(prt[n]==n)return n;
+        else return prt[n]=fin_prt(prt[n]);
+    }
+    ll fin_siz(ll n){
+        ll pp=fin_prt(n);
+        return siz[pp];
+    }
+    void ubs(ll u,ll v)
+    {
+        ll pu=fin_prt(u);
+        ll pv=fin_prt(v);
+        if(pu!=pv){
+            if (siz[pu]>siz[pv])
+            {
+                prt[pv]=pu;
+                siz[pu]+=siz[pv];
+            }
+            else{
+                prt[pu]=pv;
+                siz[pv]+=siz[pu];
+            }
+        }
+    }
+};
+void demochu(){
+    CHU cha(10);
+    cha.ubs(1,5);
+    cha.ubs(1,6);
+    cha.ubs(7,3);
+    // cha.ubs(7,5);
+    for (ll i = 0; i < 11; i++)
+    {
+        cout << cha.prt[i] << " parent of : " << i << endl;
+        cout << cha.siz[i] << " siz of    : " << i << endl;
+    }
+}
 
 
 
 
 
-ll main(){
+int main(){
     ll tt;
     cin>> tt;
     while(tt--){
-        chu();
+        // demofw();
+        demochu();
     }
+    
     return 0;
 }
