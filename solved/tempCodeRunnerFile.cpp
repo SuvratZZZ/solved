@@ -1,4 +1,3 @@
-)->bool{
     //     // ll l=0,r=a.size()-1;
     //     vector<ll> mar(a.size(),0);
     //     if(abs(a[0]-b[b.size()-1])<mm) return 0;

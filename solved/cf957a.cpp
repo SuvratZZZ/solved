@@ -33,7 +33,7 @@ void fill_factor(){
     }
 }
 vector<int> fin_factor(int n){
-    // will not have 1 as prime
+    // will not have 1 as prime 
     vector<int> res;
     int tt=n;
     while(tt!=1){
@@ -42,49 +42,27 @@ vector<int> fin_factor(int n){
     }
     return res;
 }
-ll sol(ll ind,ll tak,vector<ll> &zz,vector<vector<ll>> &dp){
-
-}
 void solve(){
-    ll n;
-    cin>>n;
-    vector<ll> t(n);
-    vector<ll> zz;
-    map<ll,ll> mp;
-    for (ll  i = 0; i < n ; i++)
+    vector<ll> a(3);
+    cin>>a[0]>>a[1]>>a[2];
+    sort(a.begin(),a.end());
+    if (a[0]+5<=a[1])
     {
-        cin>>t[i];
-        mp[t[i]]++;
+        cout << (a[0]+5)*a[1]*a[2] << endl;
     }
-    for(auto i:mp){
-        zz.push_back(i.second);
+    else if((a[0]+5+a[1])/2<=a[2]){
+        cout << ((a[0]+5+a[1])/2)*((a[0]+5+a[1]+1)/2)*a[2] << endl;
     }
-    ll mov=mp.size();
-    cout << mov << " = m " << endl;
-    vector<vector<ll>> dp(zz.size()+1,vector<ll>(mov+2,0));
-    for (ll  i =1; i <n ; i++)
-    {
-        for (ll  j = 0; j <= mov ; j++)
-        {
-            ll r1=0,r2;
-            if(j>=zz[i]){
-                if(i+1-dp[i-1][j-zz[i]]>zz[i]){
-                    r1=1+dp[i-1][j-zz[i]];
-                }
-            }
-            r2=dp[i-1][j];
-            dp[i][j]=max(r1,r2);
-        }
+    else{
+        cout << ((a[0]+5+a[1]+a[2])/3)*((a[0]+5+a[1]+a[2]+1)/3)*((a[0]+5+a[1]+a[2]+2)/3)<< endl; 
     }
-    cout << dp[n-1][mov] << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    // NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
-    // THINK OF WHAT THE PROBLEM DEMANDS!!!
-    
-   //fill_factor();
+    //NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
+    //THINK OF WHAT THE PROBLEM DEMANDS!!!
+    //fill_factor();
     ll t=1;
     cin >> t;
     while(t--){

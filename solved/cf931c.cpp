@@ -14,7 +14,7 @@ const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
 void solve(){
-
+    
 }
 int main(){
     ios_base::sync_with_stdio(false);

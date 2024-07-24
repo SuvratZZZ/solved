@@ -42,47 +42,58 @@ vector<int> fin_factor(int n){
     }
     return res;
 }
-ll sol(ll ind,ll tak,vector<ll> &zz,vector<vector<ll>> &dp){
+// void solve(){
+//     ll n,x;
+//     cin>>n>>x;
+//     vector<ll> a(n);
+//     for (ll  i = 0; i < n ; i++)
+//     {
+//         cin>>a[i];
+//     }
+//     ll res=0;
+//     for (ll  i = 0; i < n ; i++)
+//     {
+//         for (ll  j = i+1; j < n ; j++)
+//         {
+//             if((a[i]+a[j]>=pow(10,x-1))&&(a[i]+a[j]<pow(10,x))){
+//                 // cout << i << " res " << j << endl;
+//                 res+=n-1-(j-i-1);
+//             }
+//         }
+//     }
+//     cout << res << endl;
+// }
+void solve() {
+    ll n, x;
+    cin >> n >> x;
+    vll a(n);
+    fl(i, n) {
+        cin >> a[i];
+    }
 
-}
-void solve(){
-    ll n;
-    cin>>n;
-    vector<ll> t(n);
-    vector<ll> zz;
-    map<ll,ll> mp;
-    for (ll  i = 0; i < n ; i++)
-    {
-        cin>>t[i];
-        mp[t[i]]++;
+    sort(a.begin(), a.end());
+
+    ll res = 0;
+    ll ld = pow(10, x-1);
+    ll ud = pow(10, x) - 1;
+
+    for (ll i = 0; i < n; i++) {
+        ll target_low = ld - a[i];
+        ll target_high = ud - a[i];
+
+        auto it_low = lower_bound(a.begin() + i + 1, a.end(), target_low);
+        auto it_high = upper_bound(a.begin() + i + 1, a.end(), target_high);
+
+        res += distance(it_low, it_high)+n-1;
     }
-    for(auto i:mp){
-        zz.push_back(i.second);
-    }
-    ll mov=mp.size();
-    cout << mov << " = m " << endl;
-    vector<vector<ll>> dp(zz.size()+1,vector<ll>(mov+2,0));
-    for (ll  i =1; i <n ; i++)
-    {
-        for (ll  j = 0; j <= mov ; j++)
-        {
-            ll r1=0,r2;
-            if(j>=zz[i]){
-                if(i+1-dp[i-1][j-zz[i]]>zz[i]){
-                    r1=1+dp[i-1][j-zz[i]];
-                }
-            }
-            r2=dp[i-1][j];
-            dp[i][j]=max(r1,r2);
-        }
-    }
-    cout << dp[n-1][mov] << endl;
+
+    cout << res << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    // NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
-    // THINK OF WHAT THE PROBLEM DEMANDS!!!
+    //NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
+    //THINK OF WHAT THE PROBLEM DEMANDS!!!
     
    //fill_factor();
     ll t=1;

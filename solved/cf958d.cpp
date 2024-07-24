@@ -42,47 +42,49 @@ vector<int> fin_factor(int n){
     }
     return res;
 }
-ll sol(ll ind,ll tak,vector<ll> &zz,vector<vector<ll>> &dp){
-
+void dfs(vector<vector<ll>> &gra,vector<ll> &vis,ll ind,ll &r1,ll &r2,bool pa,vector<ll> &a){
+    vis[ind]=1;
+    if(pa)r1+=a[ind];
+    else r2+=a[ind];
+    for(auto i:gra[ind]){
+        if(vis[i]==-1){
+            dfs(gra,vis,i,r1,r2,!pa,a);
+        }
+    }
 }
 void solve(){
     ll n;
     cin>>n;
-    vector<ll> t(n);
-    vector<ll> zz;
-    map<ll,ll> mp;
+    vector<ll> a(n);
+    vector<ll> vis(n,-1);
+    ll res=0;
     for (ll  i = 0; i < n ; i++)
     {
-        cin>>t[i];
-        mp[t[i]]++;
+        cin>>a[i];
+        res+=a[i];
     }
-    for(auto i:mp){
-        zz.push_back(i.second);
-    }
-    ll mov=mp.size();
-    cout << mov << " = m " << endl;
-    vector<vector<ll>> dp(zz.size()+1,vector<ll>(mov+2,0));
-    for (ll  i =1; i <n ; i++)
+    vector<vector<ll>> gra(n);
+    for (ll  i = 0; i < n-1 ; i++)
     {
-        for (ll  j = 0; j <= mov ; j++)
-        {
-            ll r1=0,r2;
-            if(j>=zz[i]){
-                if(i+1-dp[i-1][j-zz[i]]>zz[i]){
-                    r1=1+dp[i-1][j-zz[i]];
-                }
-            }
-            r2=dp[i-1][j];
-            dp[i][j]=max(r1,r2);
-        }
+        ll t1,t2;
+        cin>>t1>>t2;
+        t1--;t2--;
+        gra[t1].push_back(t2);
+        gra[t2].push_back(t1);
     }
-    cout << dp[n-1][mov] << endl;
+    ll r1=0,r2=0;
+    if(n==1){
+        cout << a[0] << endl;
+        return;
+    }
+    dfs(gra,vis,0,r1,r2,0,a);
+    cout << res+min(r1,r2) << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    // NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
-    // THINK OF WHAT THE PROBLEM DEMANDS!!!
+    //NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
+    //THINK OF WHAT THE PROBLEM DEMANDS!!!
     
    //fill_factor();
     ll t=1;

@@ -51,32 +51,33 @@ void solve(){
         cin>>a[i];
         mp[a[i]]++;
     }
-    vector<ll> a2;
-    for (ll i = 0; i < n ; i++)
+    sort(a.begin(),a.end()); 
+    unordered_map<ll,vector<ll>> a2;
+    for (auto i:mp)
     {
-        if(mp[a[i]]%2==1){
-            a2.push_back(a[i]);
+        if(i.second%2==1){
+            a2[i.first%k].push_back(i.first);
         }
     }
-    a=a2;
-    sort(a.begin(),a.end());
     // for(auto i:a)cout <<i << " ";
     // cout << " jj " << endl;
     ll res=0;
-    for (ll  i = 0; i < 2*(a.size()/2)-1 ; i++)
-    {
-        bool fin=0;
-        for (ll  j  = i+1 ; j  < a.size(); j ++)
-        {
-            if(abs(a[i]-a[j])%k==0){
-                fin=1;
-                res+=(abs(a[i]-a[j]))/k;
-                a.erase(a.begin()+i);
-                a.erase(a.begin()+j-1);
+    ll cou=0;
+    for(auto j:a2){
+        ll tem=0;
+        multiset<ll> ms;
+            if(j.second.size()%2){
+                cou++;
             }
+        for (ll  i = 0; i < j.second.size() ; i++)
+        {
+            ms.insert((j.second[i+1]-j.second[i])/k);
+            if(cou>1)
+                {cout << -1 << endl;return;}
         }
-        if(fin==0)
-            {cout << -1 << endl;return;}
+        if(a2.size()%2==1){
+            res+=tem;
+        }
     }
     cout << res << endl;
 }

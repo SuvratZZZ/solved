@@ -42,47 +42,54 @@ vector<int> fin_factor(int n){
     }
     return res;
 }
-ll sol(ll ind,ll tak,vector<ll> &zz,vector<vector<ll>> &dp){
-
-}
 void solve(){
     ll n;
     cin>>n;
-    vector<ll> t(n);
-    vector<ll> zz;
-    map<ll,ll> mp;
+    vector<ll> a(n);
     for (ll  i = 0; i < n ; i++)
     {
-        cin>>t[i];
-        mp[t[i]]++;
+        cin>>a[i];
     }
-    for(auto i:mp){
-        zz.push_back(i.second);
-    }
-    ll mov=mp.size();
-    cout << mov << " = m " << endl;
-    vector<vector<ll>> dp(zz.size()+1,vector<ll>(mov+2,0));
-    for (ll  i =1; i <n ; i++)
+    sort(a.begin(),a.end());
+    ll l=0,r=n-1;
+    ll ans=0;
+    ll pre=0;
+    ll cou=0;
+    for (ll  i = 1; i < n ; i++)
     {
-        for (ll  j = 0; j <= mov ; j++)
-        {
-            ll r1=0,r2;
-            if(j>=zz[i]){
-                if(i+1-dp[i-1][j-zz[i]]>zz[i]){
-                    r1=1+dp[i-1][j-zz[i]];
-                }
+        if(a[i]==a[i-1]+1){
+            ans+=(i-pre-1);
+        }
+        else if(a[i]==a[i-1]+2){
+            ans+=(i-pre);
+            cou++;
+            if(cou%2==0){
+                pre=i;
             }
-            r2=dp[i-1][j];
-            dp[i][j]=max(r1,r2);
+        }
+        else{
+            pre=i;
         }
     }
-    cout << dp[n-1][mov] << endl;
+    
+    // while ((r-l+1)>=(a[r]-a[l]))
+    // {
+    //     if((r-l+1)>=(a[r]-a[l])){
+    //         ll l2=l;
+    //         while(r-l2+1>=a[r]-a[l2]){
+    //             ans+=((r-l2+1)-(a[r]-a[l2]));
+    //             l2++;
+    //         }
+    //     }
+    //     r--;
+    // }
+    cout << ans << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    // NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
-    // THINK OF WHAT THE PROBLEM DEMANDS!!!
+    //NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
+    //THINK OF WHAT THE PROBLEM DEMANDS!!!
     
    //fill_factor();
     ll t=1;

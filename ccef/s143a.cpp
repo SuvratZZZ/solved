@@ -42,47 +42,41 @@ vector<int> fin_factor(int n){
     }
     return res;
 }
-ll sol(ll ind,ll tak,vector<ll> &zz,vector<vector<ll>> &dp){
-
-}
 void solve(){
-    ll n;
-    cin>>n;
-    vector<ll> t(n);
-    vector<ll> zz;
-    map<ll,ll> mp;
+    ll n,k;
+    cin>>n>>k;
+    string s,t;
+    cin>>s>>t;
+    ll cz=0,co=0,bo=0,bz=0,ao=0,az=0;
     for (ll  i = 0; i < n ; i++)
     {
-        cin>>t[i];
-        mp[t[i]]++;
-    }
-    for(auto i:mp){
-        zz.push_back(i.second);
-    }
-    ll mov=mp.size();
-    cout << mov << " = m " << endl;
-    vector<vector<ll>> dp(zz.size()+1,vector<ll>(mov+2,0));
-    for (ll  i =1; i <n ; i++)
-    {
-        for (ll  j = 0; j <= mov ; j++)
-        {
-            ll r1=0,r2;
-            if(j>=zz[i]){
-                if(i+1-dp[i-1][j-zz[i]]>zz[i]){
-                    r1=1+dp[i-1][j-zz[i]];
-                }
-            }
-            r2=dp[i-1][j];
-            dp[i][j]=max(r1,r2);
+
+            if(s[i]=='0')
+                bz++;
+            else
+                bo++;
+            if(t[i]=='0')
+                az++;
+            else
+                ao++;
+        if(s[i]!=t[i]){
+            if(s[i]=='0')
+                cz++;
+            else
+                co++;
         }
     }
-    cout << dp[n-1][mov] << endl;
+    if((co==cz)&&cz<=k&&((bz>1)||(bo>1)||((k-cz)%2==0))&&(az==bz&&bo==ao)){
+        cout << "YES" << endl;
+    }
+    else
+        cout << "NO" << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    // NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
-    // THINK OF WHAT THE PROBLEM DEMANDS!!!
+    //NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
+    //THINK OF WHAT THE PROBLEM DEMANDS!!!
     
    //fill_factor();
     ll t=1;

@@ -42,47 +42,48 @@ vector<int> fin_factor(int n){
     }
     return res;
 }
-ll sol(ll ind,ll tak,vector<ll> &zz,vector<vector<ll>> &dp){
-
-}
 void solve(){
     ll n;
     cin>>n;
-    vector<ll> t(n);
-    vector<ll> zz;
-    map<ll,ll> mp;
+    vector<ll> a(n);
+    vector<ll> b(n);
+    vector<vector<ll>> gra(n);
     for (ll  i = 0; i < n ; i++)
     {
-        cin>>t[i];
-        mp[t[i]]++;
+        cin>>a[i];
     }
-    for(auto i:mp){
-        zz.push_back(i.second);
-    }
-    ll mov=mp.size();
-    cout << mov << " = m " << endl;
-    vector<vector<ll>> dp(zz.size()+1,vector<ll>(mov+2,0));
-    for (ll  i =1; i <n ; i++)
+    for (ll  i = 1; i < n ; i++)
     {
-        for (ll  j = 0; j <= mov ; j++)
-        {
-            ll r1=0,r2;
-            if(j>=zz[i]){
-                if(i+1-dp[i-1][j-zz[i]]>zz[i]){
-                    r1=1+dp[i-1][j-zz[i]];
-                }
-            }
-            r2=dp[i-1][j];
-            dp[i][j]=max(r1,r2);
-        }
+        ll t1;
+        cin>>t1;
+        t1--;
+        gra[i].push_back(t1);
+        gra[t1].push_back(i);
     }
-    cout << dp[n-1][mov] << endl;
+    vector<ll> vis(n,-1);
+    auto dfs = [&](ll ind)->void{
+        vis[ind]=1;
+        for(auto j:gra[ind]){
+            if(vis[j]==-1){
+                dfs(j);
+            }
+        }
+    };
+    for (ll  i = 0; i < n ; i++)
+    {
+        ll sum=0;
+        for(auto j:gra[n]){
+            sum+=a[j];
+        }
+        b[i]=sum-a[i]; 
+    }
+    
 }
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    // NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
-    // THINK OF WHAT THE PROBLEM DEMANDS!!!
+    //NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
+    //THINK OF WHAT THE PROBLEM DEMANDS!!!
     
    //fill_factor();
     ll t=1;

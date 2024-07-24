@@ -42,47 +42,36 @@ vector<int> fin_factor(int n){
     }
     return res;
 }
-ll sol(ll ind,ll tak,vector<ll> &zz,vector<vector<ll>> &dp){
-
-}
 void solve(){
-    ll n;
-    cin>>n;
-    vector<ll> t(n);
-    vector<ll> zz;
-    map<ll,ll> mp;
-    for (ll  i = 0; i < n ; i++)
-    {
-        cin>>t[i];
-        mp[t[i]]++;
-    }
-    for(auto i:mp){
-        zz.push_back(i.second);
-    }
-    ll mov=mp.size();
-    cout << mov << " = m " << endl;
-    vector<vector<ll>> dp(zz.size()+1,vector<ll>(mov+2,0));
-    for (ll  i =1; i <n ; i++)
-    {
-        for (ll  j = 0; j <= mov ; j++)
-        {
-            ll r1=0,r2;
-            if(j>=zz[i]){
-                if(i+1-dp[i-1][j-zz[i]]>zz[i]){
-                    r1=1+dp[i-1][j-zz[i]];
-                }
+    ll n,k;
+    cin>>n>>k;
+    if(k==0){cout << 0 << endl;return;}
+        ll ans=n,res=1;
+            if(ans>=k){
+                cout << res << endl;
+                return;
             }
-            r2=dp[i-1][j];
-            dp[i][j]=max(r1,r2);
+        for (ll  i = n-1; i >= 1 ; i--)
+        {
+            ans+=i;
+            res++;
+            if(ans>=k){
+                cout << res << endl;
+                return;
+            }
+            ans+=i;
+            res++;
+            if(ans>=k){
+                cout << res << endl;
+                return;
+            }
         }
-    }
-    cout << dp[n-1][mov] << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    // NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
-    // THINK OF WHAT THE PROBLEM DEMANDS!!!
+    //NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
+    //THINK OF WHAT THE PROBLEM DEMANDS!!!
     
    //fill_factor();
     ll t=1;

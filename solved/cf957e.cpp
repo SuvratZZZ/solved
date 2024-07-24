@@ -42,49 +42,49 @@ vector<int> fin_factor(int n){
     }
     return res;
 }
-ll sol(ll ind,ll tak,vector<ll> &zz,vector<vector<ll>> &dp){
+tuple<bool, long long, int> isPower(long long n) {
+    if (n <= 1) return {true, n, 1}; // 0 and 1 are powers of any number
 
-}
-void solve(){
-    ll n;
-    cin>>n;
-    vector<ll> t(n);
-    vector<ll> zz;
-    map<ll,ll> mp;
-    for (ll  i = 0; i < n ; i++)
-    {
-        cin>>t[i];
-        mp[t[i]]++;
-    }
-    for(auto i:mp){
-        zz.push_back(i.second);
-    }
-    ll mov=mp.size();
-    cout << mov << " = m " << endl;
-    vector<vector<ll>> dp(zz.size()+1,vector<ll>(mov+2,0));
-    for (ll  i =1; i <n ; i++)
-    {
-        for (ll  j = 0; j <= mov ; j++)
-        {
-            ll r1=0,r2;
-            if(j>=zz[i]){
-                if(i+1-dp[i-1][j-zz[i]]>zz[i]){
-                    r1=1+dp[i-1][j-zz[i]];
-                }
-            }
-            r2=dp[i-1][j];
-            dp[i][j]=max(r1,r2);
+    for (int b = 2; b <= log2(n) + 1; b++) {
+        double a = pow(n, 1.0 / b);
+        long long intA = round(a); // round to nearest integer
+        
+        // Check if intA^b == n
+        if (pow(intA, b) == n) {
+            return {true, intA, b};
         }
     }
-    cout << dp[n-1][mov] << endl;
+    return {false, -1, -1};
+}
+void solve(){
+    ll n,x;
+    cin>>n>>x;
+    vector<ll> a(n);
+    unordered_map<ll,ll> mp;
+    for (ll  i = 0; i < n ; i++)
+    {
+        cin>>a[i];
+        mp[a[i]]++;
+    }
+    tuple<bool, long long, int> tt = isPower(x);
+    for (ll  i = 0; i < n ; i++)
+    {
+        ll tem=a[i];
+        if(a[i]%x==0){
+            while (tem!=1)
+            {
+                tem=tem/x;
+            }
+        }
+    }
 }
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    // NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
-    // THINK OF WHAT THE PROBLEM DEMANDS!!!
+    //NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
+    //THINK OF WHAT THE PROBLEM DEMANDS!!!
     
-   //fill_factor();
+   fill_factor();
     ll t=1;
     cin >> t;
     while(t--){

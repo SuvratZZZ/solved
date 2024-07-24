@@ -42,47 +42,45 @@ vector<int> fin_factor(int n){
     }
     return res;
 }
-ll sol(ll ind,ll tak,vector<ll> &zz,vector<vector<ll>> &dp){
-
-}
 void solve(){
     ll n;
-    cin>>n;
-    vector<ll> t(n);
-    vector<ll> zz;
-    map<ll,ll> mp;
+    cin>> n;
+    vector<ll> a(n);
+    // unordered_map<ll,ll> mp;
     for (ll  i = 0; i < n ; i++)
     {
-        cin>>t[i];
-        mp[t[i]]++;
+        cin>>a[i];
+        // mp[a[i]]=i+1;
     }
-    for(auto i:mp){
-        zz.push_back(i.second);
-    }
-    ll mov=mp.size();
-    cout << mov << " = m " << endl;
-    vector<vector<ll>> dp(zz.size()+1,vector<ll>(mov+2,0));
-    for (ll  i =1; i <n ; i++)
+    unordered_set<ll> s2;
+    vector<pair<ll,ll>> res;
+    for (ll  i = n-1; i>=1 ; i--)
     {
-        for (ll  j = 0; j <= mov ; j++)
+        vector<ll> tem(i,-1);
+        for ( ll  j  = 0; j  < a.size() ; j ++)
         {
-            ll r1=0,r2;
-            if(j>=zz[i]){
-                if(i+1-dp[i-1][j-zz[i]]>zz[i]){
-                    r1=1+dp[i-1][j-zz[i]];
-                }
+            if(a[j]==-1)continue;
+            if(tem[a[j]%i]!=-1){
+                res.push_back({j+1,tem[a[j]%i]+1});
+                a[j]=-1;
+                break;
             }
-            r2=dp[i-1][j];
-            dp[i][j]=max(r1,r2);
+            tem[a[j]%i]=j;
         }
     }
-    cout << dp[n-1][mov] << endl;
+    reverse(res.begin(),res.end());
+    cout << "YES" << endl;
+    for (auto  i:res)
+    {
+        cout << i.first << " " << i.second << endl;
+    }
+    
 }
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    // NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
-    // THINK OF WHAT THE PROBLEM DEMANDS!!!
+    //NO NEED TO CODE WITHOUT A COMPLETE ALGORITHM!!!
+    //THINK OF WHAT THE PROBLEM DEMANDS!!!
     
    //fill_factor();
     ll t=1;
