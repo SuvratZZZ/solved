@@ -156,7 +156,6 @@ void xx(){
     cin>>n>>t;
     int res=t^n;
     cout << res ;
-    // cou ljdlkfsj
 }
 
 int main(){
