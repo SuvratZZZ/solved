@@ -18,101 +18,113 @@ const ll N = 2000;
 const ll INF = 1000000000000000000;
 const ll M = 998244353;
 
-class BigInt{
-    string digits;
-public:
+// class BigInt{
+//     string digits;
+// public:
  
-    //Constructors:
-    BigInt(unsigned long long n = 0);
-    BigInt(string &);
-    BigInt(const char *);
-    BigInt(BigInt &);
+//     //Constructors:
+//     BigInt(unsigned long long n = 0);
+//     BigInt(string &);
+//     BigInt(const char *);
+//     BigInt(BigInt &);
  
-    //Helper Functions:
-    friend void divide_by_2(BigInt &a);
-    friend bool Null(const BigInt &);
-    friend int Length(const BigInt &);
-    int operator[](const int)const;
+//     //Helper Functions:
+//     friend void divide_by_2(BigInt &a);
+//     friend bool Null(const BigInt &);
+//     friend int Length(const BigInt &);
+//     int operator[](const int)const;
  
-               /* * * * Operator Overloading * * * */
+//                /* * * * Operator Overloading * * * */
  
-    //Direct assignment
-    BigInt &operator=(const BigInt &);
+//     //Direct assignment
+//     BigInt &operator=(const BigInt &);
  
-    //Post/Pre - Incrementation
-    BigInt &operator++();
-    BigInt operator++(int temp);
-    BigInt &operator--();
-    BigInt operator--(int temp);
+//     //Post/Pre - Incrementation
+//     BigInt &operator++();
+//     BigInt operator++(int temp);
+//     BigInt &operator--();
+//     BigInt operator--(int temp);
  
-    //Addition and Subtraction
-    friend BigInt &operator+=(BigInt &, const BigInt &);
-    friend BigInt operator+(const BigInt &, const BigInt &);
-    friend BigInt operator-(const BigInt &, const BigInt &);
-    friend BigInt &operator-=(BigInt &, const BigInt &);
+//     //Addition and Subtraction
+//     friend BigInt &operator+=(BigInt &, const BigInt &);
+//     friend BigInt operator+(const BigInt &, const BigInt &);
+//     friend BigInt operator-(const BigInt &, const BigInt &);
+//     friend BigInt &operator-=(BigInt &, const BigInt &);
  
-    //Comparison operators
-    friend bool operator==(const BigInt &, const BigInt &);
-    friend bool operator!=(const BigInt &, const BigInt &);
+//     //Comparison operators
+//     friend bool operator==(const BigInt &, const BigInt &);
+//     friend bool operator!=(const BigInt &, const BigInt &);
  
-    friend bool operator>(const BigInt &, const BigInt &);
-    friend bool operator>=(const BigInt &, const BigInt &);
-    friend bool operator<(const BigInt &, const BigInt &);
-    friend bool operator<=(const BigInt &, const BigInt &);
+//     friend bool operator>(const BigInt &, const BigInt &);
+//     friend bool operator>=(const BigInt &, const BigInt &);
+//     friend bool operator<(const BigInt &, const BigInt &);
+//     friend bool operator<=(const BigInt &, const BigInt &);
  
-    //Multiplication and Division
-    friend BigInt &operator*=(BigInt &, const BigInt &);
-    friend BigInt operator*(const BigInt &, const BigInt &);
-    friend BigInt &operator/=(BigInt &, const BigInt &);
-    friend BigInt operator/(const BigInt &, const BigInt &);
+//     //Multiplication and Division
+//     friend BigInt &operator*=(BigInt &, const BigInt &);
+//     friend BigInt operator*(const BigInt &, const BigInt &);
+//     friend BigInt &operator/=(BigInt &, const BigInt &);
+//     friend BigInt operator/(const BigInt &, const BigInt &);
  
-    //Modulo
-    friend BigInt operator%(const BigInt &, const BigInt &);
-    friend BigInt &operator%=(BigInt &, const BigInt &);
+//     //Modulo
+//     friend BigInt operator%(const BigInt &, const BigInt &);
+//     friend BigInt &operator%=(BigInt &, const BigInt &);
  
-    //Power Function
-    friend BigInt &operator^=(BigInt &,const BigInt &);
-    friend BigInt operator^(BigInt &, const BigInt &);
+//     //Power Function
+//     friend BigInt &operator^=(BigInt &,const BigInt &);
+//     friend BigInt operator^(BigInt &, const BigInt &);
      
-    //Square Root Function
-    friend BigInt sqrt(BigInt &a);
+//     //Square Root Function
+//     friend BigInt sqrt(BigInt &a);
  
-    //Read and Write
-    friend ostream &operator<<(ostream &,const BigInt &);
-    friend istream &operator>>(istream &, BigInt &);
+//     //Read and Write
+//     friend ostream &operator<<(ostream &,const BigInt &);
+//     friend istream &operator>>(istream &, BigInt &);
  
-    //Others
-    friend BigInt NthCatalan(int n);
-    friend BigInt NthFibonacci(int n);
-    friend BigInt Factorial(int n);
-};
+//     //Others
+//     friend BigInt NthCatalan(int n);
+//     friend BigInt NthFibonacci(int n);
+//     friend BigInt Factorial(int n);
+// };
 
 
 void solve(){
     ll n,m;
-    BigInt prod=1;
+    ll prod=1;
     cin>>n>>m;
     vector<ll> a(n);
     for (ll  i = 0; i < n ; i++)
     {
         cin>>a[i];
-        prod=prod*a[i];
     }
     string ss;
     cin>>ss;
     ll l=0,r=n-1;
+    stack<ll> st;
+    vector<ll> res;
     for (ll  i = 0; i < n ; i++)
     {
-        cout << prod%m << " ";
+        // cout << prod%m << " ";
         if (ss[i]=='L')
         {
-            prod=prod/a[l];
+            st.push(a[l]);
             l++;
         }
         else{
-            prod=prod/a[r];
+            st.push(a[r]);
             r--;
         }
+    }
+
+    while (!st.empty())
+    {
+        prod=prod*st.top();
+        prod%=m;
+        res.push_back(prod);
+        st.pop();
+    }
+    for(auto i=res.rbegin();i!=res.rend();i++){
+        cout << *i << " ";
     }
     cout << endl;
 }

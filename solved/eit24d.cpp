@@ -57,6 +57,7 @@ void solve(){
         mp[t[i]]++;
     }
     for(auto i:mp){
+        cout << i.first << " : " << i.second << endl;
         zz.push_back(i.second);
     }
     ll mov=mp.size();

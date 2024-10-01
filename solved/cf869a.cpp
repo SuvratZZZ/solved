@@ -21,14 +21,23 @@ void solve(){
     ll n,q;
     cin>>n>>q;
     vector<ll> v(n);
-    vector<ll> prc(n-1,0);
-    prc[0]=0;
+    vector<ll> prc(n+1,0);
+    vector<ll> dec(n+1,0);
+    prc[0]=1;
+    // prc[1]=1;
     for (ll  i = 0; i < n ; i++)
     {
         cin>>v[i];
     }
+    ll chan=0;
     for (ll  i = 1; i < n-1; i++)
     {
+        // if(v[i]<=v[i-1]){
+        //     chan++;
+        // }
+        // else{
+        //     chan=0;
+        // }
         if (v[i]<=v[i-1]&&v[i]>=v[i+1])
         {
             prc[i]=prc[i-1]+1;
@@ -52,12 +61,12 @@ void solve(){
         {
             cout << t2-t1+1 << endl;
         }
-        else if(t1==1)
-        {
-            cout << t2-t1+1-(prc[t2-1]) << endl;
-        }
+        // else if(t1==1)
+        // {
+        //     cout << t2-t1+1-(prc[t2-1]) << endl;
+        // }
         else{
-            cout << t2-t1+1-(prc[t2-1]-prc[t1]) << endl;
+            cout << max(2ll,t2-t1+1-(prc[t2-2]-prc[t1-1])) << endl;
         }
     }
 }
