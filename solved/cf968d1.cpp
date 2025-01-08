@@ -95,51 +95,45 @@ public:
     }
 };
 void solve(){
-    ll n,m;
+    ll n,m,res=0;
     cin>>n>>m;
-    vector<vector<ll>> a(n);
-    vector<ll> me(n,2);
-    CHU dd(n+3);
+    vector<set<ll>> a(n);
+    vector<ll> me(n);
+    // CHU dd(n+3);
     for (ll  i = 0; i < n; i++)
     {
-        tem;
+        ll tem,t3;
         cin>>tem;
-        a[i].resize(tem);
+        // a[i].resize(tem);
         for (ll  j = 0; j < tem ; j++)
         {
-            cin>>a[i][j];
+            cin>>t3;
+            a[i].insert(t3);
         }
-        // sort(a[i].begin(),aa[i].end());
-        me[i][0]=0;
-        for (ll  j = 0; j < tem ; j++)
+        tem=0;
+
+        for (auto j:a[i])
         {
-            if(a[i][j]==me[i][0]){
-                me[i][0]++;
+            if(j==tem){
+                tem++;
             }
         }
-        for (ll  j = 0; j < tem ; j++)
+        a[i].insert(tem);
+        ll t2=0;
+        for (auto j:a[i])
         {
-            if(a[i][j]==me[i][0]){
-                me[i][1]++;
-            }
-            if(a[i][j]==me[i][1]){
-                me[i][1]++;
+            if(j==t2){
+                t2++;
             }
         }
-        dd.ubs(me[i][1],me[i][0]);
+        // cout << "mex : " << t2 << endl;
+        res=max(t2,res);
     }
-    ll res =0,fin;
-    ll i;
-    for ( i = 0; i <= min(m,2*1e5+5) ; i++)
-    {
-        ll l=0,r=1e9;
-        while (l<r)
-        {
-            ll mid=(l+r)/2;
-            
-        }
+    ll fin = min(m+1,res+1)*res;
+    if (res<m){
+        fin += (m*(m+1))/2 - ((res*(res+1))/2);
     }
-    
+    cout << fin << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);

@@ -55,65 +55,69 @@ long long binpow(long long a, long long b) {
     }
     return res;
 }
-// ll factmod(ll n, ll p) {
-//     // vector<ll> f(p);
-//     // f[0] = 1;
-//     // for (ll i = 1; i < p; i++)
-//     //     f[i] = f[i-1] * i % p;
-
-//     ll res = 1;
-//     // while (n > 1) {
-//     //     if ((n/p) % 2)
-//     //         res = p - res;
-//     //     res = res * f[n%p] % p;
-//     //     n /= p;
-//     // }
-//     return res;
-// }
-long long factmod(ll n, ll M) {
-    long long res = 1;
-    
-    for (ll i = 2; i <= n; i++) {
-        res = (res * i) % M;
-    }
-    
-    return res;
-}
 void solve(){
-    ll n;
-    cin>>n;
-    vector<ll> a(2*n);
-    for (ll  i = 0; i < 2*n ; i++)
-    {
-        cin>>a[i];
+    ll n,m;
+    cin>>n>>m;
+    string s,t;
+    cin>>s>>t;
+    if(s==t){
+        cout << 0 << endl;return;
     }
-    ll bda=0,cho=0,both=0;
-    for (ll  i = 1; i < 2*n ; i=i+2)
+    ll i1=0,i2=0,cou=0;
+    if(n<m){
+        swap(n,m);
+        swap(s,t);
+    }
+    if(s[0]!=t[0]){
+    cout << -1 << endl;
+    return;}
+    i1=0;i2=0;cou=0;
+    while (i1<n&&i2<m)
     {
-        if((max(a[i-1],a[i])!=0)&&(max(a[i-1],a[i])>(n))&&(min(a[i-1],a[i])==0))bda++;
-        if((max(a[i-1],a[i])!=0)&&(max(a[i-1],a[i])<=(n))&&(min(a[i-1],a[i])==0))cho++;
-        // if(a[i-1]==0)cho++;
-        if(a[i-1]==0&&a[i]==0){
-            both++;
-            bda++;
-            cho++;
+        if(s[i1]!=t[i2]){
+            cou++;
         }
+        i1++;i2++;
     }
-    // cout << bda << " b c " << cho << " bo " << both << endl;
-    // for (ll  i = 1 ; i < 10 ; i++)
-    // {
-    //     cout << factmod(i,M) << " b c " << endl;
-    // }
-    ll res=((factmod(bda,M)*factmod(cho,M))%M)*((both==0?1:(2*both)%M))%M;
-    res%=M;
-    cout << res << endl;
+    if(cou==0){
+    cout << 1 << endl;
+    return;}
+    i1=n-1;i2=m-1;cou=0;
+    while (i1>=0&&i2>=0)
+    {
+        if(s[i1]!=t[i2]){
+            cou++;
+        }
+        i1--;i2--;
+    }
+    if(cou==0){
+    cout << 1 << endl;
+    return;}
+    i1=0;i2=0;cou=0;
+    while (i1<n&&i2<m)
+    {
+        if(s[i1]!=t[i2]){
+            cou++;
+            if(cou==2){
+                // cout << 2 << endl;
+                // return;
+                break;
+            }
+            while(s[i1]!=t[i2]&&i1<n){
+                i1++;
+            }
+        }
+        i1++;i2++;
+    }
+    if(i1==n&&i2==m)
+    cout << 1 << endl;
+    else
+    cout << 2 << endl;
 }
 int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
-    //
-    //
-    
+    //AND RE;
    //fill_factor();
     ll t=1;
     cin >> t;

@@ -56,14 +56,22 @@ long long binpow(long long a, long long b) {
     return res;
 }
 void solve(){
-    ll n,k;
+    ll n,k,s=0,mx=0;
     cin>>n>>k;
     vector<ll> a(n);
     for (ll  i = 0; i < n ; i++)
     {
         cin>>a[i];
+        s+=a[i];
+        mx=max(a[i],mx);
     }
-    
+    if(((s+k)/mx)>=n){
+        cout << n << endl;
+        return ;
+    }
+    else{
+        cout << (s+k)/mx << endl;
+    }
 }
 int main(){
     ios_base::sync_with_stdio(false);

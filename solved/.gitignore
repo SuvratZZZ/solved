@@ -1,6 +1,7 @@
 *.exe
 *.txt
 *.rs
+*.json
 zz_cp_algg.cpp
 zz_cp_bas.cpp
 test*.cpp

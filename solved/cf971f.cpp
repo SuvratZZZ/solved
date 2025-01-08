@@ -69,21 +69,35 @@ void solve(){
     {
         ll l,r,res=0;
         cin>>l>>r;
-        ll fe=(l/n)+(l%n!=0),ls=(r/n)+(r%n!=0);
+        l--;r--;
+        // ll fe=(l/n)+(l%n!=0),ls=(r/n)+(r%n!=0);
+        ll fe=(l/n),ls=(r/n);
         res+=max(0ll,(ls-fe-1))*ps[n];
         l=(l%n);
         r=(r%n);
         if(ls==fe){
-            if(r+fe-1<n&&l+fe-1<n)
-            res+=(ps[r+fe]-ps[l+fe-1]);
-            else if(r+fe-1>=n&&l+fe-1>=n)
-            res+=(ps[((r+fe)%n)+1]-ps[(l+fe)%n]);
+            l=(l+fe)%n;
+            r=(r+fe)%n;
+            if(l<=r)
+                res+=(ps[r+1]-ps[l]);
             else
-            res+=(ps[((r+fe)%n)+1]+ps[n]-ps[l+fe]);
+                res+=(ps[n]-ps[l]+ps[r+1]-ps[0]);
         }
         else{
-            res+=
+            ll l2=(l+fe)%n;
+            ll r2=(n-1+fe)%n;
+            if(l2<=r2)
+                res+=(ps[r2+1]-ps[l2]);
+            else
+                res+=(ps[n]-ps[l2]+ps[r2+1]-ps[0]);
+            l2=(0+ls)%n;
+            r2=(r+ls)%n;
+            if(l2<=r2)
+                res+=(ps[r2+1]-ps[l2]);
+            else
+                res+=(ps[n]-ps[l2]+ps[r2+1]-ps[0]);
         }
+        cout << res << endl;
     }
     
 }
