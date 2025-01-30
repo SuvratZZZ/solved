@@ -43,14 +43,48 @@ const int LLL = 1e6+5;
 //# define JUD 1
 //#endif
 
+
+int sml_fctr[LLL];
+void fill_factor(){
+    for(int i=0;i<=LLL;i++){
+        sml_fctr[i]=i;
+    }
+    for(int i=2;i*i<=LLL;i++){
+        for(int j=i*i;j<=LLL;j=j+i){
+            if(sml_fctr[j]==j){
+                sml_fctr[j]=i;
+            }
+        }
+    }
+}
+vector<int> fin_factor(int n){
+    // will not have 1 as prime
+    vector<int> res;
+    int tt=n;
+    while(tt!=1){
+        res.push_back(sml_fctr[tt]);
+        tt=tt/sml_fctr[tt];
+    }
+    return res;
+}
+long long binpow(long long a, long long b) {
+    long long res = 1;
+    while (b > 0) {
+        if (b & 1)
+            res = res * a;
+        a = a * a;
+        b >>= 1;
+    }
+    return res;
+}
 class CHU
 {
 public:
     vector<ll> prt,siz,ran;
-    CHU( ll n){
-        prt.resize(n+1);
-        siz.resize(n+1,1);
-        ran.resize(n+1,1);
+    CHU(ll n){
+        prt.resize((ull)n+1);
+        siz.resize((ull)n+1,1);
+        ran.resize((ull)n+1,1);
         for (ll i = 0; i < n+1; i++)
         {
            prt[i]=i;
@@ -82,85 +116,43 @@ public:
         }
     }
 };
-
-int sml_fctr[LLL];
-void fill_factor(){
-    for(int i=0;i<=LLL;i++){
-        sml_fctr[i]=i;
+bool fin(multiset<ll> &a,multiset<ll> &b,ll tem){
+    if(a.find(tem)!=a.end()){
+        a.erase(a.find(tem));
+        return 1;
     }
-    for(int i=2;i*i<=LLL;i++){
-        for(int j=i*i;j<=LLL;j=j+i){
-            if(sml_fctr[j]==j){
-                sml_fctr[j]=i;
-            }
+    else if(tem==1){
+        return 0;
+    }
+    else{
+        return fin(a,b,(tem+1)/2)&&fin(a,b,tem/2);
+    }
+}
+void solve(){
+    ll n,m;
+    cin>>n>>m;
+    multiset<ll> a;
+    multiset<ll> b;
+    for (ll  i = 0; i < n ; i++)
+    {
+        ll tem;
+        cin>>tem;
+        a.insert(tem);
+    }
+    for (ll  i = 0; i < m ; i++)
+    {
+        ll tem;
+        cin>>tem;
+        b.insert(tem);
+    }
+    for (auto i:b)
+    {
+        if(!fin(a,b,i)){
+            yn(0);
+            return;
         }
     }
-}
-vector<int> fin_factor(int n){
-    vector<int> res;
-    int tt=n;
-    while(tt!=1){
-        res.push_back(sml_fctr[tt]);
-        tt=tt/sml_fctr[tt];
-    }
-    return res;
-}
-long long binpow(long long a, long long b) {
-    long long res = 1;
-    while (b > 0) {
-        if (b & 1)
-            res = res * a;
-        a = a * a;
-        b >>= 1;
-    }
-    return res;
-}
-void solve() {
-    ll n, m1, m2;
-    cin >> n >> m1 >> m2;
-
-    CHU c1(n), c2(n);
-    set<pair<ll, ll>> t1, t2; 
-    ll res = 0;
-
-    for (ll i = 0; i < m1; i++) {
-        ll a, b;
-        cin >> a >> b;
-        if (a > b) swap(a, b);
-        t1.insert({a, b});
-        // c1.ubs(a, b);
-    }
-
-    for (ll i = 0; i < m2; i++) {
-        ll a, b;
-        cin >> a >> b;
-        if (a > b) swap(a, b);
-        t2.insert({a, b});
-        c2.ubs(a, b);
-    }
-
-    // for (auto edge : t2) {
-    //     ll u = edge.first, v = edge.second;
-    //     if (c1.fin_prt(u) != c1.fin_prt(v)) {
-    //         res++;
-    //         c1.ubs(u, v);
-    //     }
-    // }
-
-    for (auto edge : t1) {
-        ll u = edge.first, v = edge.second;
-        if (c2.fin_prt(u) != c2.fin_prt(v)) {
-            res++;
-        }
-        else
-            c1.ubs(u, v);
-    }
-    set<ll> s1,s2;
-    for(ll i=1;i<=n;i++){
-        s1.insert(c1.fin_prt(i));
-        s2.insert(c2.fin_prt(i));
-    }
-    cout << res+(ll)abs(s1.size()-s2.size()) << endl;
+    yn(a.empty());
 }
 int main(){
     #ifndef ONLINE_JUDGE

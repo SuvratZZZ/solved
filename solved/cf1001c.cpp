@@ -43,45 +43,6 @@ const int LLL = 1e6+5;
 //# define JUD 1
 //#endif
 
-class CHU
-{
-public:
-    vector<ll> prt,siz,ran;
-    CHU( ll n){
-        prt.resize(n+1);
-        siz.resize(n+1,1);
-        ran.resize(n+1,1);
-        for (ll i = 0; i < n+1; i++)
-        {
-           prt[i]=i;
-        }
-    }
-    ll fin_prt(ll n)
-    {
-        if(prt[n]==n)return n;
-        else return prt[n]=fin_prt(prt[n]);
-    }
-    ll fin_siz(ll n){
-        ll pp=fin_prt(n);
-        return siz[pp];
-    }
-    void ubs(ll u,ll v)
-    {
-        ll pu=fin_prt(u);
-        ll pv=fin_prt(v);
-        if(pu!=pv){
-            if (siz[pu]>siz[pv])
-            {
-                prt[pv]=pu;
-                siz[pu]+=siz[pv];
-            }
-            else{
-                prt[pu]=pv;
-                siz[pv]+=siz[pu];
-            }
-        }
-    }
-};
 
 int sml_fctr[LLL];
 void fill_factor(){
@@ -97,6 +58,7 @@ void fill_factor(){
     }
 }
 vector<int> fin_factor(int n){
+    // will not have 1 as prime
     vector<int> res;
     int tt=n;
     while(tt!=1){
@@ -115,52 +77,55 @@ long long binpow(long long a, long long b) {
     }
     return res;
 }
-void solve() {
-    ll n, m1, m2;
-    cin >> n >> m1 >> m2;
-
-    CHU c1(n), c2(n);
-    set<pair<ll, ll>> t1, t2; 
-    ll res = 0;
-
-    for (ll i = 0; i < m1; i++) {
-        ll a, b;
-        cin >> a >> b;
-        if (a > b) swap(a, b);
-        t1.insert({a, b});
-        // c1.ubs(a, b);
+void solve(){
+    ll n;cin>>n;ll sum=0;
+    vector<ll> a(n);
+    for (ll  i = 0; i < n ; i++)
+    {
+        cin>>a[i];
+        sum+=a[i];
     }
-
-    for (ll i = 0; i < m2; i++) {
-        ll a, b;
-        cin >> a >> b;
-        if (a > b) swap(a, b);
-        t2.insert({a, b});
-        c2.ubs(a, b);
+    if(n==1){
+        cout << a[0] << endl;
+        return;
     }
-
-    // for (auto edge : t2) {
-    //     ll u = edge.first, v = edge.second;
-    //     if (c1.fin_prt(u) != c1.fin_prt(v)) {
-    //         res++;
-    //         c1.ubs(u, v);
-    //     }
+    ll res=sum;
+    // if(sum<0){
+    //     reverse(a.begin(),a.end());
+    //     res=max(res,-sum);
     // }
-
-    for (auto edge : t1) {
-        ll u = edge.first, v = edge.second;
-        if (c2.fin_prt(u) != c2.fin_prt(v)) {
-            res++;
+    // else{
+    //     res=max(res,sum);
+    // }
+    // cout << sum << endl;
+    vector<ll> b=a,c;
+    while (1)
+    {
+        if(b.size()==1){
+            break;
+        }
+        sum=0;
+        for (ll  j = 0 ; j < b.size()-1 ; j++)
+        {
+            sum+=b[j+1]-b[j];
+            c.push_back(b[j+1]-b[j]);
+        }
+        b.clear();
+        b=c;
+        c.clear();
+        if(sum<0){
+            for(auto &i:b){
+                i=-i;
+            }
+            reverse(b.begin(),b.end());
+            res=max(res,accumulate(b.begin(),b.end(),0ll));
         }
         else
-            c1.ubs(u, v);
+            res=max(res,sum);
+        // cout << res << " -> " << i << endl;
     }
-    set<ll> s1,s2;
-    for(ll i=1;i<=n;i++){
-        s1.insert(c1.fin_prt(i));
-        s2.insert(c2.fin_prt(i));
-    }
-    cout << res+(ll)abs(s1.size()-s2.size()) << endl;
+    res=max(res,b[0]);
+    cout << res << endl;
 }
 int main(){
     #ifndef ONLINE_JUDGE
