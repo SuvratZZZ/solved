@@ -77,17 +77,88 @@ long long binpow(long long a, long long b) {
     }
     return res;
 }
-void solve(){
-    ll n;cin>>n;
-    vector<ll> a(n);
-    ll tc=0,pr=0;
-    set<ll> cur;
-    cur.insert(0);
-    for(ll i=n-1;i>=0;i++){
-        if(cur.find(a[i]-tc)!=cur.end()){
-            
+    vector<vll> d1;
+    vector<vll> d2;
+    vector<set<ll>> gr1,gr2;
+
+void comp(ll at,map<ll,ll> &onpa,ll st){
+    if(st!=1){
+        onpa[at]=1;
+    }
+    for(auto i:gr1[at]){
+        if(gr2[at].find(i)!=gr2[at].end()){
+            if(st==1){onpa[at]=1;}
+            if(onpa[i]!=1){
+                comp(i,onpa,0);
+            }
         }
     }
+}
+void solve(){
+    ll n,s1,s2;cin>>n>>s1>>s2;
+    ll m1;cin>>m1;
+    gr1.clear();
+    gr2.clear();
+    gr1.resize(n);
+    gr2.resize(n);
+    for (ll  i = 0; i < m1 ; i++)
+    {
+        ll a,b;
+        cin>>a>>b;a--;b--;
+        gr1[a].insert(b);
+        gr1[b].insert(a);
+    }
+    ll m2;cin>>m2;
+    for (ll  i = 0; i < m2 ; i++)
+    {
+        ll a,b;
+        cin>>a>>b;a--;b--;
+        gr2[a].insert(b);
+        gr2[b].insert(a);
+    }
+    d1.clear();d2.clear();
+    d1.resize(n);
+    d2.resize(n);
+    for(auto &i:d1)i.resize(2);
+    for(auto &i:d2)i.resize(2);
+    map<ll,ll> onpa;
+    for (ll  i = 0; i < n ; i++)
+    {
+        comp(i,onpa,1);
+    }
+    
+    // for(auto i:onpa){cout << i.first << " = " << i.second << endl;}
+
+    set<vector<ll>> pq;
+    vvll dis(n,vll(n,INT_MAX));
+    ll ans=INT_MAX;
+    pq.insert({0,s1-1,s2-1});
+    dis[s1-1][s2-1]=0;
+    while (!pq.empty())
+    {
+        ll x=(*pq.begin())[1];
+        ll y=(*pq.begin())[2];
+        ll toat=(*pq.begin())[0];
+        
+        pq.erase(pq.begin());
+        if(x==y){
+            if(onpa[x]==1)
+            {    
+                ans=toat;
+                break;
+            }
+        }
+        for(auto i:gr1[x]){
+            for(auto j:gr2[y]){
+                if(dis[i][j]>toat+(abs(i-j))){
+                    pq.insert({toat+abs(i-j),i,j});
+                    dis[i][j]=toat+abs(i-j);
+                }
+            }
+        }
+    }
+    // for(auto i:dis){for(auto j:i)cout << j << " ";cout << endl;}
+    cout << (ans==INT_MAX?-1:ans) << endl;
 }
 int main(){
     #ifndef ONLINE_JUDGE
