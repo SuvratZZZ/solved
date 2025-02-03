@@ -81,6 +81,8 @@ void solve(){
     ll n;
     cin>>n;
     vector<ll> a(n);
+    vvll gr(n);
+    multiset<ll> st;
     for (ll  i = 0; i < n-1 ; i++)
     {
         ll u,v;
@@ -88,23 +90,39 @@ void solve(){
         u--;v--;
         a[u]++;
         a[v]++;
+        gr[u].push_back(v);
+        gr[v].push_back(u);
     }
-    sort(a.rbegin(),a.rend());
-    if(n<=5)cout << n-2 << endl;
-    else if(a[0]==3&&a[1]==3){
-        if(n==6){
-            cout << 4 << endl;
+    if(n<=5){
+        cout << n-2 << endl;
+        return;
+    }
+    for (ll  i = 0; i < n ; i++)
+    {
+        st.insert(a[i]);
+    }
+    ll ans=0,mx=0;ll mxnei=0;
+    for (ll  i = 0; i < n ; i++)
+    {
+        for(auto j:gr[i]){
+            st.erase(st.find(a[j]));
+            mxnei=max(mxnei,a[i]+a[j]-2);
         }
-        else{
-            cout << 5 << endl;
+            st.erase(st.find(a[i]));
+        // if(st.rbegin()->second!=i)
+        //     mxnei=max(mxnei,(st.rbegin()->first)-1);
+        // else{
+        //     auto it=st.rbegin();it++;
+        if(!st.empty())
+            mxnei=max(mxnei,a[i]+(*st.rbegin())-1);
+            st.insert(a[i]);
+            // }
+        for(auto j:gr[i]){
+            st.insert(a[j]);
         }
+        // ans=max(ans,mxnei+a[i]);
     }
-    else if(a[0]==3&&a[1]==2){
-            cout << 4 << endl;
-    }
-    else if(a[0]==2&&a[1]==2){
-            cout << 3 << endl;
-    }
+    cout<<mxnei<<endl;
 }
 int main(){
     #ifndef ONLINE_JUDGE
