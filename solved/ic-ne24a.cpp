@@ -77,61 +77,9 @@ long long binpow(long long a, long long b) {
     }
     return res;
 }
+// 1423 
 void solve(){
-    string s;cin>>s;
-    ll n;n=s.length();
-    map<char,ll> mp;
-    vector<ll> init(n,0);
-
-    vector<vector<ll>> pr(n+1,vector<ll>(26,0));
-    set<ll> not_same;
-    for (ll  i = 0; i < n ; i++)
-    {
-        pr[i+1]=pr[i];
-        if(s[i]!=s[n-1-i]){
-            mp[s[i]]++;
-            pr[i+1][s[i]-'a']+=1;
-            not_same.insert(i);
-            not_same.insert(n-1-i);
-        }
-    }
-    ll l=0,r=n;
-    auto che=[&](ll mid)->bool{
-        bool ress=0;
-        for (ll  i = 0; i+mid-1 < n ; i++)
-        {
-            bool tempo=1;
-            for (ll  j = 0; j < 26 ; j++)
-            {
-                if(pr[i+mid][j]-pr[i][j]<(mp['a'+j]/2)){
-                    tempo=0;
-                    // cout << pr[i+mid][j]-pr[i][j] << " <-pr gg mp-> " << mp['a'+j]/2 << " chat " << (char)('a'+j) << endl;
-                }
-                // else
-                // cout << pr[i+mid][j]-pr[i][j] << " <-pr mp-> " << mp['a'+j]/2 << " chat " << (char)('a'+j) << endl;
-            }
-            auto ptr=not_same.lower_bound(i);
-            ptr--;
-            auto ptr2=not_same.upper_bound(i+mid-1);
-            if((n-*ptr-1)>=(*ptr2)){
-                continue;
-            }
-            else
-            ress|=tempo;
-        }
-        return ress;
-    };
-    while (l<r)
-    {
-        ll mid=(l+r)/2;
-        if(che(mid)){
-            r=mid;
-        }
-        else{
-            l=mid+1;
-        }
-    }
-    cout << l << endl;
+    
 }
 int main(){
     #ifndef ONLINE_JUDGE
@@ -144,18 +92,8 @@ int main(){
     ll t=1;
     cin >> t;
     while(t--){
-        // solve();
+        solve();
     }
-    for (ll  i = 0; i < 384 ; i++)
-    {
-        cout<< (i%3==2?'#':'.') ;
-    }
-    cout << endl;
-    for (ll  i = 0; i < 384 ; i++)
-    {
-        cout<< (i%3==2?'#':'.') ;
-    }
-    cout << endl;
     #ifndef ONLINE_JUDGE
         auto end = std::chrono::high_resolution_clock::now();
         std::chrono::duration<long double> duration = end - start;

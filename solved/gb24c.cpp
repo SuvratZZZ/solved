@@ -77,23 +77,45 @@ long long binpow(long long a, long long b) {
     }
     return res;
 }
+
+// void solve(){
+//     ll n,k;cin>>n>>k;
+//     ll tt=n;
+//     ll res=0;
+//     while (n>=k)
+//     {
+//         ll tem=n/2;
+//         // cout << n << " n is " << endl;
+//         // if(n==1){
+//         //     res+=tt;
+//         // }
+//         if(n%2)
+//         {
+//             ll no=(tt-tem-1)/(2*(tem+1));
+//             cout << no << " no " << endl;
+//             cout << n << " <- N " << tem << " < tn add > " << ((no+1)*(tem+2+tem+(no*(2*(tem+1)))))/2 << endl;
+//             // res+=((no+1)*(tem+2+tem+(no*(2*(tem+1)))))/2;
+//             res+=((no+1)*(tem+2+tem+(no*(2*(tem+1)))))/2;
+//         }
+//         n=n/2;
+//     }
+//     cout << res << endl;
+// }
+
 void solve(){
-    ll n,k;cin>>n>>k;
-    ll tt=n;
-    ll res=0;
-    while ((n*2)>=k)
-    {
-        if(n%2)
-        {
-            ll no=(tt-n-1)/(2*(n+1));
-            cout << no << " no " << endl;
-            cout << n << " < n add > " << ((no+1)*(n+2+n+(no*(2*(n+1)))))/2 << endl;
-            res+=((no+1)*(n+2+n+(no*(2*(n+1)))))/2;
-        }
-        n=n/2;
-    }
-    cout << res << endl;
+    ll n,k;
+    cin >> n >> k;
+		ll mul = n + 1, sum = 0, cur = 1;
+		while (n >= k) {
+			if (n & 1) {sum += cur;
+                // cout << n << " <n " << cur << " < cur add>" << (mul/2)*cur << endl;
+            }
+			n >>= 1;
+			cur <<= 1;
+		}
+		cout << mul * sum / 2 << endl;
 }
+
 int main(){
     #ifndef ONLINE_JUDGE
         auto start = std::chrono::high_resolution_clock::now();

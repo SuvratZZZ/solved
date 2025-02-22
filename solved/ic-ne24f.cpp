@@ -77,6 +77,7 @@ long long binpow(long long a, long long b) {
     return res;
 }
 string s,t;
+ll inf = 1e5;
 ll sol(ll ind,ll sta,vector<vector<ll>> &dp){
     if(ind==dp.size()-1){
         if((sta==0&&((s[ind]=='.'&&t[ind]=='.')||(s[ind]=='#'&&t[ind]=='#')))||(sta==1&&s[ind]=='.'&&t[ind]=='#')||(sta==2&&t[ind]=='.'&&s[ind]=='#')||(sta==3&&(s[ind]=='.'&&t[ind]=='.'))){
@@ -84,6 +85,12 @@ ll sol(ll ind,ll sta,vector<vector<ll>> &dp){
         }
         else return 0;
     }
+    // if(ind==dp.size()){
+    //     if((sta==0||sta==3)){
+    //         return 1;
+    //     }
+    //     else return 0;
+    // }
     // if(ind>=dp.size())return 1;
     if(dp[ind][sta]!=-1)return dp[ind][sta];
     ll res=0;
@@ -98,13 +105,13 @@ ll sol(ll ind,ll sta,vector<vector<ll>> &dp){
             if(s[ind+1]=='.'){
                 res+=sol(ind+1,1,dp);
             }
-            else return 0;
+            else res = 0;
         }
         else if(t[ind]=='.'&&s[ind]=='#'){
             if(t[ind+1]=='.'){
                 res+=sol(ind+1,2,dp);
             }
-            else return 0;
+            else res = 0;
         }
         else if(t[ind]=='#'&&s[ind]=='#'){
             res+=sol(ind+1,0,dp);
@@ -115,7 +122,7 @@ ll sol(ll ind,ll sta,vector<vector<ll>> &dp){
             if(t[ind+1]=='.'){
                 res+=sol(ind+1,2,dp);
             }
-            else return 0;
+            else res = 0;
         }
         else if(s[ind]=='.'&&t[ind]=='#'){
             res+=sol(ind+1,0,dp);
@@ -132,7 +139,7 @@ ll sol(ll ind,ll sta,vector<vector<ll>> &dp){
             if(s[ind+1]=='.'){
                 res+=sol(ind+1,1,dp);
             }
-            else return 0;
+            else res = 0;
         }
         else if(s[ind]=='.'&&t[ind]=='#'){
             res = 0;
@@ -149,9 +156,10 @@ ll sol(ll ind,ll sta,vector<vector<ll>> &dp){
             res+=sol(ind+1,0,dp);
         }
         else{
-            return 0;
+            res = 0;
         }
     }
+    res=min(inf,res);
     return dp[ind][sta]=res;
 }
 void solve(){
@@ -161,6 +169,15 @@ void solve(){
     cin>>s>>t;
     vector<vll> dp(n,vll(4,-1));
     cout << (sol(0,0,dp)==1?"Unique":sol(0,0,dp)==0?"None":"Multiple") << endl;
+    // cout << s << endl;
+    // cout << t << endl;
+    // cout << s.length() << endl;
+    // for(auto i:dp){
+    //     for(auto j:i){
+    //         cout << j << "," ;
+    //     }
+    //     cout << endl;
+    // }
     // cout << sol(0,0,dp) << endl;
 }
 int main(){
