@@ -77,71 +77,22 @@ long long binpow(long long a, long long b) {
     }
     return res;
 }
-// 14235
-
-void solve()
-{
-    ll n;cin>>n;
-    vector<ll> a(n);
-    map <ll,ll> mp;
+void solve(){
+    ll n;
+    cin>>n;
+    string s;
+    cin>>s;
+    ll a=0,b=0;
     for (ll  i = 0; i < n ; i++)
     {
-        cin>>a[i];
-        mp[a[i]]=i;
-    }
-    vector<vector<ll>> res;
-    ll cou=1;
-    ll st,en;
-    for (ll  i = mp[cou]; i < n ; i=mp[cou])
-    {
-        st=cou;
-        for (ll j  = i; j  < n ; j++)
-        {
-            if(a[j]==cou+1){
-                cou++;
-            }
+        if(s[i]=='-'){
+            a++;
         }
-        en=cou;
-        for(ll lm=st;lm<en;lm++)
-        {
-            for (ll  k = lm+1; k <= en ; k++)
-            {
-                res.push_back({k,lm});
-            }
-            for (ll  k = en; k > lm ; k--)
-            {
-                res.push_back({lm,k});
-            }
-        }
-        cou++;
-        if(cou>n)break;
-    }
-    set<ll> stt;
-    for (ll  i = 1; i <= n ; i++){stt.insert(i);}
-    
-    cou=1;
-    // cout << " don" << endl;
-    for (ll  i = 0; i < n ; i++)
-    {
-        stt.erase(a[i]);
-        auto it=stt.upper_bound(a[i]);
-        if(it==stt.begin())continue;
-        it--;
-        while (1)
-        {
-            res.push_back({a[i],(*it)});
-            if(it==stt.begin())break;
-            it--;
+        else{
+            b++;
         }
     }
-    // cout << " don" << endl;
-    cout << res.size() << endl;
-    for(auto i:res){
-        for(auto j:i){
-            cout << j << " " ; 
-        }
-        cout << endl;
-    }
+    cout << (a/2)*b*(a-(a/2)) << endl;
 }
 int main(){
     #ifndef ONLINE_JUDGE

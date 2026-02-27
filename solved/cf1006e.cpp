@@ -77,68 +77,40 @@ long long binpow(long long a, long long b) {
     }
     return res;
 }
-// 14235
+const int NNN = 500;
+vector<long long> nc2(NNN + 1);
 
-void solve()
-{
-    ll n;cin>>n;
-    vector<ll> a(n);
-    map <ll,ll> mp;
-    for (ll  i = 0; i < n ; i++)
-    {
-        cin>>a[i];
-        mp[a[i]]=i;
+void precompute() {
+    for (ll n = 0; n <= NNN; ++n) {
+        nc2[n] = (n >= 2) ? (1LL * n * (n - 1) / 2) : 0;
     }
+}
+
+void solve(){
+    ll k;cin>>k;
+    // for(auto i:nC2)cout << i << " ";
+    ll xcou=-250;
+    ll ycou=0;
     vector<vector<ll>> res;
-    ll cou=1;
-    ll st,en;
-    for (ll  i = mp[cou]; i < n ; i=mp[cou])
+    while (k!=0)
     {
-        st=cou;
-        for (ll j  = i; j  < n ; j++)
+        auto upto = upper_bound(nc2.begin(),nc2.end(),k);
+        upto--;
+        ll ind=upto-nc2.begin();
+        res.push_back({xcou,ycou});xcou++;
+        for (ll  i = 0; i < ind-1 ; i++)
         {
-            if(a[j]==cou+1){
-                cou++;
-            }
+            res.push_back({xcou,ycou});
+            xcou++;
         }
-        en=cou;
-        for(ll lm=st;lm<en;lm++)
-        {
-            for (ll  k = lm+1; k <= en ; k++)
-            {
-                res.push_back({k,lm});
-            }
-            for (ll  k = en; k > lm ; k--)
-            {
-                res.push_back({lm,k});
-            }
-        }
-        cou++;
-        if(cou>n)break;
+        ycou++;
+        k=k-(*upto);
+        // cout << ind << " nd " << k << endl;
     }
-    set<ll> stt;
-    for (ll  i = 1; i <= n ; i++){stt.insert(i);}
-    
-    cou=1;
-    // cout << " don" << endl;
-    for (ll  i = 0; i < n ; i++)
-    {
-        stt.erase(a[i]);
-        auto it=stt.upper_bound(a[i]);
-        if(it==stt.begin())continue;
-        it--;
-        while (1)
-        {
-            res.push_back({a[i],(*it)});
-            if(it==stt.begin())break;
-            it--;
-        }
-    }
-    // cout << " don" << endl;
-    cout << res.size() << endl;
+    cout << res.size() <<endl;
     for(auto i:res){
         for(auto j:i){
-            cout << j << " " ; 
+            cout << j << " ";
         }
         cout << endl;
     }
@@ -153,6 +125,7 @@ int main(){
    //fill_factor();
     ll t=1;
     cin >> t;
+    precompute();
     while(t--){
         solve();
     }

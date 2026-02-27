@@ -77,70 +77,13 @@ long long binpow(long long a, long long b) {
     }
     return res;
 }
-// 14235
-
-void solve()
-{
-    ll n;cin>>n;
-    vector<ll> a(n);
-    map <ll,ll> mp;
-    for (ll  i = 0; i < n ; i++)
-    {
-        cin>>a[i];
-        mp[a[i]]=i;
+void solve(){
+    ll n,k,p;cin>>n>>k>>p;
+    if( (abs(k)+abs(p)-1)/abs(p) <= n){
+        cout << (abs(k)+abs(p)-1)/abs(p) << endl;
     }
-    vector<vector<ll>> res;
-    ll cou=1;
-    ll st,en;
-    for (ll  i = mp[cou]; i < n ; i=mp[cou])
-    {
-        st=cou;
-        for (ll j  = i; j  < n ; j++)
-        {
-            if(a[j]==cou+1){
-                cou++;
-            }
-        }
-        en=cou;
-        for(ll lm=st;lm<en;lm++)
-        {
-            for (ll  k = lm+1; k <= en ; k++)
-            {
-                res.push_back({k,lm});
-            }
-            for (ll  k = en; k > lm ; k--)
-            {
-                res.push_back({lm,k});
-            }
-        }
-        cou++;
-        if(cou>n)break;
-    }
-    set<ll> stt;
-    for (ll  i = 1; i <= n ; i++){stt.insert(i);}
-    
-    cou=1;
-    // cout << " don" << endl;
-    for (ll  i = 0; i < n ; i++)
-    {
-        stt.erase(a[i]);
-        auto it=stt.upper_bound(a[i]);
-        if(it==stt.begin())continue;
-        it--;
-        while (1)
-        {
-            res.push_back({a[i],(*it)});
-            if(it==stt.begin())break;
-            it--;
-        }
-    }
-    // cout << " don" << endl;
-    cout << res.size() << endl;
-    for(auto i:res){
-        for(auto j:i){
-            cout << j << " " ; 
-        }
-        cout << endl;
+    else{
+        cout << -1 << endl;
     }
 }
 int main(){

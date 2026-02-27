@@ -77,71 +77,37 @@ long long binpow(long long a, long long b) {
     }
     return res;
 }
-// 14235
-
-void solve()
-{
-    ll n;cin>>n;
-    vector<ll> a(n);
-    map <ll,ll> mp;
-    for (ll  i = 0; i < n ; i++)
-    {
-        cin>>a[i];
-        mp[a[i]]=i;
-    }
-    vector<vector<ll>> res;
-    ll cou=1;
-    ll st,en;
-    for (ll  i = mp[cou]; i < n ; i=mp[cou])
-    {
-        st=cou;
-        for (ll j  = i; j  < n ; j++)
-        {
-            if(a[j]==cou+1){
-                cou++;
-            }
+void solve(){
+    int n;cin>>n;
+        vector<int> a(n),p(n),st(n+1,1e9),en(n+1,-1);
+        for(int i=0;i<n;i++){
+            cin>>p[i];
         }
-        en=cou;
-        for(ll lm=st;lm<en;lm++)
-        {
-            for (ll  k = lm+1; k <= en ; k++)
+        for(int i=0;i<n;i++){
+            cin>>a[i];
+            st[a[i]]=min(st[a[i]],i);
+            en[a[i]]=max(en[a[i]],i);
+        }
+        bool ans = 1;
+        int block=-1;
+        fall(st);
+        fall(en);
+        for(int i=0;i<n;i++){
+            if((st[p[i]]==1e9)&&(en[p[i]]==-1))
             {
-                res.push_back({k,lm});
+                continue;
             }
-            for (ll  k = en; k > lm ; k--)
-            {
-                res.push_back({lm,k});
+            if((st[p[i]]>block)){
+                block = en[p[i]];
+            }
+            else{
+                ans=0;
             }
         }
-        cou++;
-        if(cou>n)break;
-    }
-    set<ll> stt;
-    for (ll  i = 1; i <= n ; i++){stt.insert(i);}
-    
-    cou=1;
-    // cout << " don" << endl;
-    for (ll  i = 0; i < n ; i++)
-    {
-        stt.erase(a[i]);
-        auto it=stt.upper_bound(a[i]);
-        if(it==stt.begin())continue;
-        it--;
-        while (1)
-        {
-            res.push_back({a[i],(*it)});
-            if(it==stt.begin())break;
-            it--;
-        }
-    }
-    // cout << " don" << endl;
-    cout << res.size() << endl;
-    for(auto i:res){
-        for(auto j:i){
-            cout << j << " " ; 
-        }
-        cout << endl;
-    }
+        if(ans)
+        cout << "YES" << endl;
+        else
+        cout << "NO" << endl;
 }
 int main(){
     #ifndef ONLINE_JUDGE

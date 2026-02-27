@@ -77,71 +77,48 @@ long long binpow(long long a, long long b) {
     }
     return res;
 }
-// 14235
-
-void solve()
-{
+void solve(){
     ll n;cin>>n;
     vector<ll> a(n);
-    map <ll,ll> mp;
     for (ll  i = 0; i < n ; i++)
     {
         cin>>a[i];
-        mp[a[i]]=i;
     }
-    vector<vector<ll>> res;
-    ll cou=1;
-    ll st,en;
-    for (ll  i = mp[cou]; i < n ; i=mp[cou])
-    {
-        st=cou;
-        for (ll j  = i; j  < n ; j++)
-        {
-            if(a[j]==cou+1){
-                cou++;
-            }
-        }
-        en=cou;
-        for(ll lm=st;lm<en;lm++)
-        {
-            for (ll  k = lm+1; k <= en ; k++)
-            {
-                res.push_back({k,lm});
-            }
-            for (ll  k = en; k > lm ; k--)
-            {
-                res.push_back({lm,k});
-            }
-        }
-        cou++;
-        if(cou>n)break;
-    }
-    set<ll> stt;
-    for (ll  i = 1; i <= n ; i++){stt.insert(i);}
-    
-    cou=1;
-    // cout << " don" << endl;
+    vector<vector<ll>> invv(n,vector<ll>(n,0));
     for (ll  i = 0; i < n ; i++)
     {
-        stt.erase(a[i]);
-        auto it=stt.upper_bound(a[i]);
-        if(it==stt.begin())continue;
-        it--;
-        while (1)
+        for (ll  j  = i+1 ; j  < n ; j ++)
         {
-            res.push_back({a[i],(*it)});
-            if(it==stt.begin())break;
-            it--;
+            if(a[j]<a[i]){
+                invv[i][j]=invv[i][j-1]+1;
+            }
+            else if(a[j]>a[i]){
+                invv[i][j]=invv[i][j-1]-1;
+            }
+            else{
+                invv[i][j]=invv[i][j-1];
+            }
         }
     }
-    // cout << " don" << endl;
-    cout << res.size() << endl;
-    for(auto i:res){
-        for(auto j:i){
-            cout << j << " " ; 
+    vector<ll> res(2,1);
+    ll maxi=0;
+    for (ll  i = 0; i < n ; i++)
+    {
+        for (ll  j  = i+1 ; j  < n ; j ++)
+        {
+            if(invv[i][j]>maxi){
+                res[0]=i+1;
+                res[1]=j+1;
+                maxi=invv[i][j];
+            }
         }
-        cout << endl;
     }
+    // for (auto i:invv){
+    //     for(auto j:i)cout << j << " ";
+    //     cout << endl;
+    // }
+    for(auto i:res)cout << i << " ";
+    cout << endl;
 }
 int main(){
     #ifndef ONLINE_JUDGE

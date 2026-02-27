@@ -77,71 +77,53 @@ long long binpow(long long a, long long b) {
     }
     return res;
 }
-// 14235
-
-void solve()
-{
-    ll n;cin>>n;
-    vector<ll> a(n);
-    map <ll,ll> mp;
-    for (ll  i = 0; i < n ; i++)
-    {
-        cin>>a[i];
-        mp[a[i]]=i;
-    }
-    vector<vector<ll>> res;
-    ll cou=1;
-    ll st,en;
-    for (ll  i = mp[cou]; i < n ; i=mp[cou])
-    {
-        st=cou;
-        for (ll j  = i; j  < n ; j++)
-        {
-            if(a[j]==cou+1){
-                cou++;
-            }
-        }
-        en=cou;
-        for(ll lm=st;lm<en;lm++)
-        {
-            for (ll  k = lm+1; k <= en ; k++)
-            {
-                res.push_back({k,lm});
-            }
-            for (ll  k = en; k > lm ; k--)
-            {
-                res.push_back({lm,k});
-            }
-        }
-        cou++;
-        if(cou>n)break;
-    }
-    set<ll> stt;
-    for (ll  i = 1; i <= n ; i++){stt.insert(i);}
+void solve(){
+    ll n ; cin>> n;
+    vector<vector<int>> grid(n, vector<int>(n, 0));
+    float centerX, centerY;
     
-    cou=1;
-    // cout << " don" << endl;
-    for (ll  i = 0; i < n ; i++)
-    {
-        stt.erase(a[i]);
-        auto it=stt.upper_bound(a[i]);
-        if(it==stt.begin())continue;
-        it--;
-        while (1)
-        {
-            res.push_back({a[i],(*it)});
-            if(it==stt.begin())break;
-            it--;
+    if (n % 2 == 0) {
+        centerX = centerY = n / 2 - 0.5;
+    } else {
+        centerX = centerY = n / 2;
+    }
+    
+    vector<pair<float, pair<int, int>>> positions;
+    
+    for (int i = 0; i < n; ++i) {
+        for (int j = 0; j < n; ++j) {
+            float dx = i - centerX;
+            float dy = j - centerY;
+            float distance = dx * dx + dy * dy;
+            positions.push_back({distance, {i, j}});
         }
     }
-    // cout << " don" << endl;
-    cout << res.size() << endl;
-    for(auto i:res){
-        for(auto j:i){
-            cout << j << " " ; 
+    
+    sort(positions.begin(), positions.end(), [](const pair<float, pair<int, int>>& a, const pair<float, pair<int, int>>& b) {
+        if (a.first != b.first) {
+            return a.first < b.first;
+        } else {
+            if (a.second.first != b.second.first) {
+                return a.second.first > b.second.first;
+            } else {
+                return a.second.second < b.second.second;
+            }
+        }
+    });
+    
+    for (int num = 0; num < n * n; ++num) {
+        int i = positions[num].second.first;
+        int j = positions[num].second.second;
+        grid[i][j] = num;
+    }
+
+    for (const auto& row : grid) {
+        for (int num : row) {
+            cout << num << " ";
         }
         cout << endl;
     }
+
 }
 int main(){
     #ifndef ONLINE_JUDGE
@@ -150,7 +132,7 @@ int main(){
     ios_base::sync_with_stdio(false);
     cin.tie(NULL);
     //AND RE;
-   //fill_factor();
+    //fill_factor();
     ll t=1;
     cin >> t;
     while(t--){
